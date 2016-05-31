@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="./player.css">
+    <link rel="stylesheet" type="text/css" href="./glyphter-font/css/adzicons.css">
+</head>
+
+<body>
+    <div class="player primary">
+        <video class="video" data-video-yt="wiAouD0yYd4" data-after="3"></video>
+    </div>
+
+    <div class="player secondary">
+        <video class="video" data-video="http://www.html5rocks.com/en/tutorials/video/basics/devstories.mp4"></video>
+    </div>
+
+    <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
+    <script src="./player.js"></script>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '273225873018584',
+                xfbml: true,
+                version: 'v2.6'
+            });
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+</body>
+
+</html>
