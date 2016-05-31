@@ -43,7 +43,7 @@
     position: absolute;
     height: 4px;
     width: 100%;
-    bottom: 60px;
+    bottom: 45px;
     left: 0;
     border: 0;
     transition: all 1s ease-out 0s;
@@ -173,7 +173,7 @@
     left: 0;
     right: 0;
     background-color: transparent;
-    padding: 20px;
+    padding: 12px 18px;
     display: flex;
     justify-content: space-between;
 }
@@ -181,8 +181,9 @@
 .player .bottom span.time {
     color: white;
     vertical-align: top;
-    font-size: 14px;
+    font-size: 12px;
     padding-left: 20px;
+    padding-top: 2px;
 }
 
 .player .bottom span.time span {
@@ -201,13 +202,18 @@
     width: 100%;
     height: 100%;
     text-align: center;
+    background: rgba(0,0,0,0.8);
 }
 
 .player .embed-overlay span {
     display: block;
+    margin-top: 20%;
+    margin-bottom: 10px;
+    font-size: 18px;
 }
 
 .player .embed-overlay textarea {
     resize: none;
     overflow: hidden;
+    height: 56px;
 }
