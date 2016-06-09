@@ -2,7 +2,7 @@ import './vendor/vast-client';
 import $ from './Element';
 import Player from './Player';
 
-new Player({ url: '/test/vast3.xml' });
+new Player({ url: 'http://localhost:8000/test/vast3.xml' });
 
 window.fbAsyncInit = function() {
     FB.init({
