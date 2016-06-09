@@ -3,8 +3,8 @@ import $ from './Element'
 var addAssets = function() {
     var head = $(document).find('head'),
         els = [
-            { tag: 'link', options: { rel: 'stylesheet', href: '/css/style.css' } },
-            { tag: 'link', options: { rel: 'stylesheet', href: '/css/glyphter-font/css/adzicons.css' } },
+            { tag: 'link', options: { rel: 'stylesheet', href: 'http://localhost:8000/css/style.css' } },
+            { tag: 'link', options: { rel: 'stylesheet', href: 'http://localhost:8000/css/glyphter-font/css/adzicons.css' } },
             { tag: 'script', options: { src: 'https://www.youtube.com/iframe_api' } }
         ],
         attr;

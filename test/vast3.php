@@ -1,4 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?php
+header('Access-Control-Allow-Origin: *');
+header('Content-type: text/xml');
+
+echo '<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <VAST version="3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd">
 	<Ad id="preroll-1" sequence="1">
 		<InLine>
@@ -203,4 +207,4 @@
 		</Creatives>
 		</InLine>
 	 </Ad>
-</VAST>
+</VAST>';
