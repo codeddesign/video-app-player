@@ -1,0 +1,251 @@
+.hidden {
+    display: none !important;
+}
+
+::-webkit-media-controls {
+    display: none !important;
+}
+
+.player__container {
+    font-family: Arial;
+    display: inline-flex;
+    position: relative;
+    min-width: 640px;
+    min-height: 360px;
+    align-items: center;
+    justify-content: center;
+}
+
+.player__poster {
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.player__play {
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 2;
+    color: white;
+    padding: 20px;
+    border-radius: 100%;
+    border: 3px white solid;
+    transition: all .3s ease-out;
+}
+
+.player__play .icon-play:before {
+    /*  font-size / 3 */
+    margin-left: calc(30px / 3);
+}
+
+.player__play:hover {
+    color: #02A3DE;
+    border: 3px #02A3DE solid;
+}
+
+.player__video {
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+.player__container .vastTarget {
+    z-index: 1;
+    display: block;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.player__container .vastCountdown {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    min-width: 90px;
+    background-color: rgba(255, 255, 255, .2);
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    transition: all .3s ease-out;
+}
+
+.player__container .vastCountdown.done {
+    z-index: 2;
+    cursor: pointer;
+    background-color: white;
+}
+
+.player__container .vastCountdown.done:hover {
+    text-decoration: underline;
+}
+
+.player__controls {
+    z-index: 9999999999;
+    color: white;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0);
+    min-height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.player__controls div.left {
+    padding-left: 20px;
+}
+
+.player__controls div.right {
+    padding-right: 20px;
+}
+
+.player__controls:hover {
+    display: flex;
+}
+
+.player__controls span {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.player__controls span {
+    padding-right: 20px;
+}
+
+.player__controls span.time {
+    font-size: 12px;
+    vertical-align: text-top;
+}
+
+.player__controls span.time > .current,
+.player__controls span.time > .total {
+    padding: 0;
+}
+
+.player__controls span:last-child {
+    padding-right: 0;
+}
+
+.player__controls span[class*='icon-'] {
+    cursor: pointer;
+    color: white;
+}
+
+.player__controls span[class*='icon-']:hover {
+    cursor: pointer;
+    color: #02A3DE;
+    transition: all .2s ease-in;
+}
+
+
+/** progress */
+
+.player__progress {
+    cursor: pointer;
+    backgrouad-color: rgba(255, 255, 255, .1);
+    position: absolute;
+    height: 4px;
+    width: 100%;
+    bottom: 45px;
+    left: 0;
+    border: 0;
+    transition: all .1s ease-out 0s;
+}
+
+.player__progress:hover {
+    height: 8px;
+}
+
+.player__progress::-webkit-progress-bar {
+    background-color: rgba(255, 255, 255, .3);
+}
+
+.player__progress::-moz-progress-bar {
+    background-color: #02A3DE;
+}
+
+.player__progress::-moz-progress-value {
+    background-color: #02A3DE;
+}
+
+.player__progress::-webkit-progress-value {
+    background-color: #02A3DE;
+}
+
+
+/** share */
+
+.player__share {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 20px;
+    color: white;
+    transition: all .2s ease-in;
+}
+
+.player__share span {
+    display: block;
+    font-size: 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.player__share span:hover {
+    color: #02A3DE;
+}
+
+.player__share span:first-child {
+    margin-top: 0;
+}
+
+.player__code {
+    display: none;
+    z-index: 4;
+    background-color: rgba(255, 255, 255, .9);
+    position: relative;
+}
+
+.player__code textarea {
+    display: block;
+    overflow: hidden;
+    resize: none;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 12px;
+    outline: none;
+}
+
+.player__code span {
+    display: block;
+    padding: 10px 35px;
+}
+
+.player__code span.close {
+    cursor: pointer;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 100%;
+    line-height: 1;
+    color: black;
+}
