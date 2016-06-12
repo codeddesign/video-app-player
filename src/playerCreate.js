@@ -1,12 +1,29 @@
 import $ from './Element'
+import config from './_config'
 
 var addAssets = function() {
     var head = $(document).find('head'),
         els = [
-            { tag: 'link', options: { rel: 'stylesheet', href: 'http://localhost:8000/css/style.css' } },
-            { tag: 'link', options: { rel: 'stylesheet', href: 'http://localhost:8000/css/glyphter-font/css/adzicons.css' } },
-            { tag: 'script', options: { src: 'https://www.youtube.com/iframe_api' } }
-        ],
+        {
+            tag: 'link',
+            options: {
+                rel: 'stylesheet',
+                href: config.path + '/css/style.css'
+            }
+        },
+        {
+            tag: 'link',
+            options: {
+                rel: 'stylesheet',
+                href: config.path + '/css/glyphter-font/css/adzicons.css'
+            }
+        },
+        {
+            tag: 'script',
+            options: {
+                src: 'https://www.youtube.com/iframe_api'
+            }
+        }],
         attr;
 
     els.forEach(function(r) {

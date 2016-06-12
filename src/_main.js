@@ -1,11 +1,14 @@
 import './vendor/vast-client';
 import Player from './Player';
+import config from './_config';
 
-new Player({ url: 'http://localhost:8000/test/vast3.php' });
+new Player({
+    url: config.path + '/test/vast3.xml'
+});
 
 window.fbAsyncInit = function() {
     FB.init({
-        appId: '273225873018584',
+        appId: config.fbId,
         xfbml: true,
         version: 'v2.6'
     });

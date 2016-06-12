@@ -124,6 +124,7 @@
 }
 
 .player__controls span {
+    cursor: default;
     margin-right: 20px;
 }
 
@@ -132,10 +133,9 @@
     vertical-align: text-top;
 }
 
-.player__controls span.time > .current,
-.player__controls span.time > .total {
+.player__controls span.time > span {
+    cursor: default;
     margin: 0;
-    cursor: text;
 }
 
 .player__controls span:last-child {
