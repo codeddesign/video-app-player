@@ -10,8 +10,9 @@
     font-family: Arial;
     display: inline-flex;
     position: relative;
-    min-width: 640px;
-    min-height: 360px;
+    width: 640px;
+    height: 360px;
+    max-width: 100%;
     align-items: center;
     justify-content: center;
 }
