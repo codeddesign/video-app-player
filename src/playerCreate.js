@@ -56,14 +56,14 @@ export default function(player) {
                     </span>
                 </div>
                 <div class="right">
-                    <span class="icon-volume2"></span>
-                    <span class="icon-fullscreen"></span>
+                    <span class="icon-volume2-hold"></span>
+                    <span class="icon-fullscreen-hold"></span>
                 </div>
             </div>
             <div class="player__share hidden">
-                <span class="icon-share1"></span>\
-                <span class="icon-facebook-sq"></span>\
-                <span class="icon-twitter-sq"></span>\
+                <span class="icon-vidshareurl"></span>\
+                <span class="icon-vidfacebook"></span>\
+                <span class="icon-vidtwitter"></span>\
             </div>
             <div class="player__code">
                 <span class="close">&#x2715;</span>
