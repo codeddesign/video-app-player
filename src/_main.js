@@ -3,7 +3,8 @@ import Player from './Player';
 import config from './_config';
 
 new Player({
-    url: config.path + '/test/vast3.xml'
+    //url: config.path + '/test/vast3.xml'
+    url: 'http://fp31r.ads.tremorhub.com/ad/tag?adCode=kqsg4&playerWidth=600&playerHeight=300&mediaId=a3m&mediaUrl=http%3A%2F%2Fa3m.io&srcPageUrl=http%3A%2F%2Fa3m.io'
 });
 
 window.fbAsyncInit = function() {
