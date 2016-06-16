@@ -1,3 +1,6 @@
+import config from '../../config.js';
+import '../vendor/vast-client';
+
 var createSourceObjects = function(media_files) {
     var sourcesByFormat = [],
         media_file,
@@ -6,7 +9,10 @@ var createSourceObjects = function(media_files) {
 
     for (a = 0, b = media_files.length; a < b; a++) {
         media_file = media_files[a];
-        source = { type: media_file.mimeType, src: media_file.fileURL };
+        source = {
+            type: media_file.mimeType,
+            src: media_file.fileURL
+        };
 
         sourcesByFormat.push({
             type: media_file.mimeType,
@@ -20,11 +26,15 @@ var createSourceObjects = function(media_files) {
 }
 
 export default function(player) {
-    if(!player.settings.url) {
+    if (!config.path.vast || window.location.href.indexOf(config.path.app) == 0) {
+        player.$els.play.show();
+
         return false;
     }
 
-    DMVAST.client.get(player.settings.url, function(response) {
+    player.vast = {};
+
+    DMVAST.client.get(config.path.vast, function(response) {
         if (response) {
             // we got a response, deal with it
             for (var adIdx = 0; adIdx < response.ads.length; adIdx++) {
@@ -41,7 +51,7 @@ export default function(player) {
                             player.vast.sources = createSourceObjects(creative.mediaFiles);
 
                             if (!player.vast.sources.length) {
-                                player.event.trigger('ad:canceled');
+                                player.event.trigger('vast:canceled');
                                 return;
                             }
 
@@ -59,19 +69,21 @@ export default function(player) {
 
                 if (player.vastTracker) {
                     // vast tracker and content is ready to go, trigger event
-                    player.event.trigger('vast:ready');
+                    player.event.trigger('vast:loaded');
 
                     break;
                 } else {
                     // Inform ad server we can't find suitable media file for this ad
-                    vast.util.track(ad.errorURLTemplates, { ERRORCODE: 403 });
+                    vast.util.track(ad.errorURLTemplates, {
+                        ERRORCODE: 403
+                    });
                 }
             }
         }
 
         if (!player.vastTracker) {
             // No pre-roll, start video
-            player.event.trigger('ad:canceled');
+            player.event.trigger('vast:canceled');
         }
     });
 }

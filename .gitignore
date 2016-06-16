@@ -1,4 +1,3 @@
 node_modules/
-src/_config.js
+config.js
 the-player.js
-the-player_vastless.js

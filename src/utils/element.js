@@ -48,12 +48,12 @@ export default function(source) {
         }
 
         this.source.hide = function() {
-            this.css('display', 'none');
+            this.addClass('hidden');
             return this;
         }
 
         this.source.show = function() {
-            this.css('display', 'block');
+            this.removeClass('hidden');
             return this;
         }
 

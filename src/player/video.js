@@ -1,5 +1,11 @@
 export default function(player) {
-    var video = player.$container.find('video');
+    var video = player.$els.video;
+
+     /**
+     * Initiate variables,
+     * Add load video onload event
+     * Add video helper methods
+     */
 
     video.playing = false;
 
@@ -32,6 +38,10 @@ export default function(player) {
     }
 
     video.getDuration = function() {
+        if (isNaN(this.duration)) {
+            return 0;
+        }
+
         return this.duration;
     }
 
@@ -40,13 +50,15 @@ export default function(player) {
     }
 
     video.finished = function() {
-        var finished = this.getCurrentTime() >= this.getDuration();
+        if (this.getDuration() <= 0 || this.getCurrentTime() < this.getDuration()) {
+            this.playing = true;
 
-        if (finished) {
-            this.playing = false;
+            return false;
         }
 
-        return finished;
+        this.playing = false;
+
+        return true;
     }
 
     video.seekTo = function(seconds) {

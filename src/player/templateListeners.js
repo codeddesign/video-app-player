@@ -1,8 +1,14 @@
-import { progressCursor, onHoverShowEls, onHoverHideEls } from './utils';
+import progressCursor from '../utils/progressCursor';
 
 export default function(player) {
+    player.$els.target.onclick = function() {
+        player.event.trigger('video:click');
+    }
+
     player.$els.play.onclick = function() {
-        player.event.trigger('video:init');
+        player.event.trigger('video:play');
+
+        player.video.playVideo();
     }
 
     player.$els.playBtn.onclick = function() {
@@ -31,19 +37,21 @@ export default function(player) {
     }
 
     player.$container.onmouseover = function() {
-        if (!player.yt) {
+        if (!player.ytReady || !player.yt.isPlaying()) {
             return false;
         }
 
-        onHoverShowEls(player);
+        player.$els.controls.show();
+        player.$els.share.show();
     }
 
     player.$container.onmouseout = function() {
-        if (!player.yt) {
+        if (!player.ytReady || !player.yt.isPlaying()) {
             return false;
         }
 
-        onHoverHideEls(player);
+        player.$els.controls.hide();
+        player.$els.share.hide();
     }
 
     player.$els.fbBtn.onclick = function() {

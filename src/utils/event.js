@@ -1,4 +1,4 @@
-export default function() {
+export default function(player) {
     var event = function() {
         this.list = {};
     };
@@ -9,7 +9,7 @@ export default function() {
         return this;
     };
 
-    event.prototype.trigger = function(name) {
+    event.prototype.trigger = function(name, status) {
         if (typeof this.list[name] == 'undefined') {
             throw new Error(name + ': event does not exists');
         }
