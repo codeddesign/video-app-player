@@ -51,11 +51,6 @@ export default function(player) {
             player.video.pauseVideo();
         }
 
-        player.tracker.event({
-            event: evName,
-            status: status
-        });
-
         player.event.trigger('yt:init', status);
     })
 }

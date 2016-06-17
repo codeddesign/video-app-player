@@ -105,7 +105,7 @@ export default function(player) {
         }
     })
 
-    player.event.on('yt:playing', function() {
+    player.event.on('yt:playing', function(evName) {
         if (!player.ytReady) {
             return false;
         }
@@ -115,6 +115,10 @@ export default function(player) {
 
             player.$els.playBtn.addClass('icon-pause');
             player.$els.playBtn.removeClass('icon-play');
+
+            player.tracker.event({
+                event: evName
+            });
         }
     })
 

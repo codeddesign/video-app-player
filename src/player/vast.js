@@ -1,4 +1,5 @@
 import config from '../../config.js';
+import isPreview from '../utils/isPreview';
 import '../vendor/vast-client';
 
 var createSourceObjects = function(media_files) {
@@ -26,7 +27,7 @@ var createSourceObjects = function(media_files) {
 }
 
 export default function(player) {
-    if (!config.path.vast || window.location.href.indexOf(config.path.app) == 0) {
+    if (!config.path.vast || isPreview()) {
         player.$els.play.show();
 
         return false;

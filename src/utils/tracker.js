@@ -1,9 +1,12 @@
-import config from '../../config'
+import config from '../../config';
+import isPreview from './isPreview';
 
 export default function(player) {
     var self = this;
 
-    this.route = config.path.app + '/vast/track';
+    this.route = config.path.app + '/track';
+
+    this.tracked = {};
 
     var inlineData = function(data) {
         var inline = [];
@@ -21,10 +24,15 @@ export default function(player) {
 
     return {
         event: function(data) {
+            if (self.tracked[data.event] || isPreview()) {
+                return false;
+            }
+
+            self.tracked[data.event] = Date.now();
+
             data.campaign = player.campaignId;
 
             var image = new Image();
-
             image.src = self.route + inlineData(data);
         }
     }
