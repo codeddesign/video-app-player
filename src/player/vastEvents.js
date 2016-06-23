@@ -30,6 +30,11 @@ export default function(player) {
         player.event.trigger('vast:init-video');
     });
 
+    player.event.on('vast:canceled', function() {
+        player.vast = false;
+        player.event.trigger('vast:init-video');
+    });
+
     player.event.on('vast:init-video', function() {
         player.$els.play.show();
 
