@@ -3,11 +3,11 @@ import config from '../../config';
 
 export default function(player) {
     var script = $(document).find(`script[src^="${config.path.player}"]`),
-        data = script.attr('src').split('/p')[1].split('-'),
+        data = script.attr('src').split('/p')[1].split('.'),
         campaignId = data[0],
-        videoId = data[1].replace('.js', '');
+        videoId = data[1];
 
-    var html = `<div class="player__container" id="${videoId}">
+    var html = `<div class="player__container" id="yt_${videoId}">
             <div class="player__poster video_play" style="background-image: url(http://img.youtube.com/vi/${videoId}/hqdefault.jpg);"></div>
             <span class="player__play hidden"><span class="icon-play"></span></span>
 
@@ -46,7 +46,7 @@ export default function(player) {
 
     script.replaceElement(html);
 
-    player.$container = $(document).find('#' + videoId);
+    player.$container = $(document).find('#yt_' + videoId);
 
     player.$els = {
         poster: player.$container.find('.player__poster'),
