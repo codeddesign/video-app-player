@@ -9,7 +9,7 @@ export default function(player) {
 
     var html = `<div class="player__container" id="yt_${videoId}">
             <div class="player__poster video_play" style="background-image: url(http://img.youtube.com/vi/${videoId}/hqdefault.jpg);"></div>
-            <span class="player__play hidden"><span class="icon-play"></span></span>
+            <div class="player__play hidden"><span class="icon-play"></span></div>
 
             <div class="player__video hidden"></div>
             <div class="player__controls hidden hovering">

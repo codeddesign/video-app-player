@@ -8,16 +8,15 @@
 
 .player__container {
     font-family: Arial;
-    display: inline-flex;
-    display: -webkit-inline-flex;
+    display: flex;
+    display: -webkit-flex;
     position: relative;
-    width: 640px;
-    height: 360px;
-    max-width: 100%;
-    align-items: center;
-    -webkit-align-items: center;
-    justify-content: center;
-    -webkit-justify-content: center;
+    height: 0;
+    padding-bottom: 56.25%;
+    margin-bottom: 0;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 0;
 }
 
 .player__poster {
@@ -30,12 +29,23 @@
     height: 100%;
     display: inline-flex;
     display: -webkit-inline-flex;
-	display: -ms-inline-flexbox;
+    display: -ms-inline-flexbox;
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .player__play {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    -webkit-justify-content: center;
+}
+
+.player__play span {
     font-size: 30px;
     cursor: pointer;
     z-index: 2;
@@ -51,7 +61,7 @@
     margin-left: calc(30px / 3);
 }
 
-.player__play:hover {
+.player__play span:hover {
     color: #02A3DE;
     border: 4px #02A3DE solid;
 }
@@ -128,8 +138,8 @@ iframe.player__video.hidden {
 .player__controls div.left {
     padding-left: 20px;
     text-align: left;
-	width: 100%;
-	margin-top: 10px;
+    width: 100%;
+    margin-top: 10px;
     height: 16px;
 }
 
@@ -333,14 +343,16 @@ iframe.player__video.hidden {
 }
 
 .player__logo {
-	background: url('images/ad3logo.png');
-	width: 200px;
-	height: 74px;
-	position: absolute;
-	left: -50px;
+    background: url('images/ad3logo.png');
+    width: 200px;
+    height: 74px;
+    position: absolute;
+    left: -50px;
     top: -7px;
-	-ms-transform: scale(0.3, 0.3); /* IE 9 */
-    -webkit-transform: scale(0.3, 0.3); /* Safari */
+    -ms-transform: scale(0.3, 0.3);
+    /* IE 9 */
+    -webkit-transform: scale(0.3, 0.3);
+    /* Safari */
     transform: scale(0.3, 0.3);
     z-index: 9999;
 }
