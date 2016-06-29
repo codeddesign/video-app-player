@@ -41,8 +41,7 @@ export default function(player) {
             return false;
         }
 
-        player.$els.controls.show();
-        player.$els.share.show();
+        player.event.trigger('template:hovering', 'show');
     }
 
     player.$container.onmouseout = function() {
@@ -50,8 +49,7 @@ export default function(player) {
             return false;
         }
 
-        player.$els.controls.hide();
-        player.$els.share.hide();
+        player.event.trigger('template:hovering', 'hide');
     }
 
     player.$els.fbBtn.onclick = function() {

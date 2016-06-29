@@ -2,6 +2,7 @@ import Event from '../utils/event';
 import Tracker from '../utils/tracker';
 import assets from './assets';
 import template from './template';
+import templateEvents from './templateEvents';
 import templateListeners from './templateListeners';
 import vastEvents from './vastEvents';
 import vast from './vast';
@@ -18,6 +19,7 @@ export default function() {
     assets();
 
     template(this);
+    templateEvents(this);
     templateListeners(this);
 
     vastEvents(this);
