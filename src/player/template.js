@@ -12,7 +12,7 @@ export default function(player) {
             <span class="player__play hidden"><span class="icon-play"></span></span>
 
             <div class="player__video hidden"></div>
-            <div class="player__controls hidden">
+            <div class="player__controls hidden hovering">
                 <progress class="player__progress" min="0" max="0" value="0"></progress>
                 <div class="left">
                     <span class="icon-play"></span>
@@ -27,6 +27,8 @@ export default function(player) {
             </div>
             <a href="http://a3m.io" target="_blank"><div class="player__logo"></div></a>
             <div class="player__share hidden">
+            <div class="player__logo hidden hovering"></div>
+            <div class="player__share hidden hovering">
                 <span class="icon-vidshareurl"></span>\
                 <span class="icon-vidfacebook"></span>\
                 <span class="icon-vidtwitter"></span>\
@@ -70,6 +72,7 @@ export default function(player) {
         codeBtn: player.$container.find('.player__share .icon-vidshareurl'),
         code: player.$container.find('.player__code'),
         codeClose: player.$container.find('.player__code .close'),
-        textarea: player.$container.find('.player__code textarea')
+        textarea: player.$container.find('.player__code textarea'),
+        hovering: player.$container.findAll('.hovering')
     }
 }

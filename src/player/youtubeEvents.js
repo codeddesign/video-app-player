@@ -17,8 +17,8 @@ export default function(player) {
 
     var youtubeShow = function() {
         player.$els.yt.show();
-        player.$els.controls.show();
-        player.$els.share.show();
+
+        player.event.trigger('template:hovering', 'show');
     }
 
     player.event.on('yt:init', function(evName, status) {
