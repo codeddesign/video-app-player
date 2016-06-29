@@ -25,9 +25,7 @@ export default function(player) {
                     <span class="icon-fullscreen-hold"></span>
                 </div>
             </div>
-            <a href="http://a3m.io" target="_blank"><div class="player__logo"></div></a>
-            <div class="player__share hidden">
-            <div class="player__logo hidden hovering"></div>
+            <a href="http://a3m.io" target="_blank" class="logo__link"><div class="player__logo"></div></a>
             <div class="player__share hidden hovering">
                 <span class="icon-vidshareurl"></span>\
                 <span class="icon-vidfacebook"></span>\
@@ -73,6 +71,7 @@ export default function(player) {
         code: player.$container.find('.player__code'),
         codeClose: player.$container.find('.player__code .close'),
         textarea: player.$container.find('.player__code textarea'),
-        hovering: player.$container.findAll('.hovering')
+        hovering: player.$container.findAll('.hovering'),
+        logo: player.$container.find('.player__logo')
     }
 }

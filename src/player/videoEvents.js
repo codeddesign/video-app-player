@@ -6,6 +6,7 @@ export default function(player) {
     player.event.on('video:play', function() {
         player.$els.play.hide();
         player.$els.poster.hide();
+        player.$els.logo.hide();
 
         if (player.vast) {
             player.$els.video.show();

@@ -110,6 +110,8 @@ export default function(player) {
             return false;
         }
 
+        player.$els.logo.show();
+
         if (player.yt.isPlaying()) {
             youtubeShow();
 

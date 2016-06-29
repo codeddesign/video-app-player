@@ -344,3 +344,7 @@ iframe.player__video.hidden {
     transform: scale(0.3, 0.3);
     z-index: 9999;
 }
+
+.logo_link {
+    z-index: 9999999999;
+}
