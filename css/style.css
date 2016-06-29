@@ -337,9 +337,10 @@ iframe.player__video.hidden {
 	width: 200px;
 	height: 74px;
 	position: absolute;
-	left: 10px;
-	top: 10px;
-	-ms-transform: scale(0.4, 0.4); /* IE 9 */
-    -webkit-transform: scale(0.4, 0.4); /* Safari */
-    transform: scale(0.4, 0.4);
+	left: -50px;
+    top: -7px;
+	-ms-transform: scale(0.3, 0.3); /* IE 9 */
+    -webkit-transform: scale(0.3, 0.3); /* Safari */
+    transform: scale(0.3, 0.3);
+    z-index: 9999;
 }

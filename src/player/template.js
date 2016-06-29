@@ -25,7 +25,7 @@ export default function(player) {
                     <span class="icon-fullscreen-hold"></span>
                 </div>
             </div>
-            <div class="player__logo hidden"></div>
+            <a href="http://a3m.io" target="_blank"><div class="player__logo"></div></a>
             <div class="player__share hidden">
                 <span class="icon-vidshareurl"></span>\
                 <span class="icon-vidfacebook"></span>\
