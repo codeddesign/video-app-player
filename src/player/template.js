@@ -1,5 +1,6 @@
 import $ from '../utils/element';
 import config from '../../config';
+import { isMobile, isIGadget } from '../utils/mobileCheck';
 
 export default function(player) {
     var script = $(document).find(`script[src^="${config.path.player}"]`),
@@ -8,9 +9,9 @@ export default function(player) {
         videoId = data[1];
 
     var html = `<div class="player__container" id="yt_${videoId}">
-            <div class="player__poster video_play" style="background-image: url(http://img.youtube.com/vi/${videoId}/hqdefault.jpg);"></div>
-            <div class="player__play hidden"><span class="icon-play"></span></div>
-
+            <div class="player__overlay" style="background-image: url(http://img.youtube.com/vi/${videoId}/hqdefault.jpg);">
+                <span class="icon-play hidden"></span>
+            </div>
             <div class="player__video hidden"></div>
             <div class="player__controls hidden hovering">
                 <progress class="player__progress" min="0" max="0" value="0"></progress>
@@ -37,9 +38,10 @@ export default function(player) {
                 <textarea rows="2">${script.outerHTML.trim()}</textarea>
             </div>
 
-            <video class="player__video hidden"></video>
+            <video class="player__video hidden" preload="auto"></video>
             <a class="vastTarget hidden" target="_blank"></a>
             <span class="vastCountdown hidden"></span>
+            <div id="player__vpaid"></div>
         </div>`;
 
     player.campaignId = campaignId;
@@ -50,18 +52,16 @@ export default function(player) {
     player.$container = $(document).find('#yt_' + videoId);
 
     player.$els = {
-        poster: player.$container.find('.player__poster'),
-        play: player.$container.find('.player__play'),
+        overlay: player.$container.find('.player__overlay'),
         video: player.$container.find('video.player__video'),
         share: player.$container.find('.player__share'),
         yt: player.$container.find('div.player__video'),
         controls: player.$container.find('.player__controls'),
         target: player.$container.find('.vastTarget'),
         countdown: player.$container.find('.vastCountdown'),
-        progress: player.$container.find('progress'),
         timeCurrent: player.$container.find('.player__controls .time .current'),
         timeTotal: player.$container.find('.player__controls .time .total'),
-        progress: player.$container.find('progress'),
+        progress: player.$container.find('.player__progress'),
         playBtn: player.$container.find('.player__controls .icon-play'),
         volumeBtn: player.$container.find('.player__controls .icon-volume2-hold'),
         fullBtn: player.$container.find('.player__controls .icon-fullscreen-hold'),
@@ -72,6 +72,16 @@ export default function(player) {
         codeClose: player.$container.find('.player__code .close'),
         textarea: player.$container.find('.player__code textarea'),
         hovering: player.$container.findAll('.hovering'),
-        logo: player.$container.find('.player__logo')
+        logo: player.$container.find('.player__logo'),
+        vpaidContainer: player.$container.find('#player__vpaid')
+    }
+
+    if (isMobile) {
+        player.$container.addClass('mobile');
+        player.$els.video.attr('controls', true);
+
+        if (isIGadget) {
+            player.$container.addClass('iDevice');
+        }
     }
 }

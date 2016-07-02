@@ -107,9 +107,7 @@ export default function(source) {
             return this;
         }
 
-        this.source.insertElement = function(tag, properties, chain) {
-            chain = chain || false;
-
+        this.source.insertElement = function(tag, properties) {
             var node = document.createElement(tag);
 
             Object.keys(properties).forEach(function(key) {
@@ -118,16 +116,10 @@ export default function(source) {
 
             this.appendChild(node);
 
-            if (chain) {
-                return new element(node);
-            }
-
             return this;
         }
 
-        this.source.insertAfter = function(tag, properties, chain) {
-            chain = chain || false;
-
+        this.source.insertAfter = function(tag, properties) {
             var node = document.createElement(tag);
 
             Object.keys(properties).forEach(function(key) {
@@ -135,10 +127,6 @@ export default function(source) {
             });
 
             this.parentNode.insertBefore(node, this.nextSibling);
-
-            if (chain) {
-                return new element(node);
-            }
 
             return this;
         }

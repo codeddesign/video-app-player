@@ -24,7 +24,7 @@ export default function(player) {
 
     return {
         event: function(data) {
-            if (self.tracked[data.event] || isPreview()) {
+            if (self.tracked[data.event] || isPreview) {
                 return false;
             }
 

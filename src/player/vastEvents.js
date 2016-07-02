@@ -1,4 +1,5 @@
 import Video from './video';
+import { isMobile } from '../utils/mobileCheck';
 
 export default function(player) {
     player.event.on('vast:loaded', function() {
@@ -32,17 +33,29 @@ export default function(player) {
 
     player.event.on('vast:canceled', function() {
         player.vast = false;
-        player.event.trigger('vast:init-video');
+
+        player.$els.video.hide();
+
+        if (!isMobile) {
+            player.event.trigger('vast:init-video');
+        }
     });
 
     player.event.on('vast:init-video', function() {
-        player.$els.play.show();
-
         if (!player.vast) {
+            player.$els.overlay.find('.icon-play').show();
             return false;
         }
 
-        var source = 0; // todo
+        // todo:
+        var source = player.vast.sources[0];
+        if (source.type.indexOf('javascript') !== -1 || source.type.indexOf('flash') !== -1) {
+            player.vast = false;
+
+            console.log(`\tunhandled case "${source.type}": skipping..`);
+            player.event.trigger('vast:canceled');
+            return false;
+        }
 
         /**
          * Add ad's link
@@ -55,6 +68,6 @@ export default function(player) {
         /**
          * Add video's source
          */
-        player.$els.video.src = player.vast.sources[source].src;
+        player.$els.video.src = source.src;
     })
 }

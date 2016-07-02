@@ -5,7 +5,8 @@ import template from './template';
 import templateEvents from './templateEvents';
 import templateListeners from './templateListeners';
 import vastEvents from './vastEvents';
-import vast from './vast';
+import vpaidEvents from './vpaidEvents';
+import vastLoad from './vastLoad';
 import Video from './video';
 import videoEvents from './videoEvents';
 import youtubeEvents from './youtubeEvents';
@@ -23,7 +24,8 @@ export default function() {
     templateListeners(this);
 
     vastEvents(this);
-    vast(this);
+    vpaidEvents(this);
+    vastLoad(this);
 
     videoEvents(this);
     this.video = new Video(this);

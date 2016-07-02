@@ -5,8 +5,22 @@ export default function(player) {
         player.event.trigger('video:click');
     }
 
-    player.$els.play.onclick = function() {
+    player.$els.overlay.onclick = function() {
+        // Don't play if not ready
+        if (player.$els.overlay.find('.icon-play').hasClass('hidden')) {
+            console.log('not ready?!');
+            return false;
+        }
+
+        player.$els.overlay.find('.icon-play').hide();
+
         player.event.trigger('video:play');
+
+        if (player.adUnit) {
+            player.adUnit.startAd();
+
+            return false;
+        }
 
         player.video.playVideo();
     }
@@ -41,7 +55,7 @@ export default function(player) {
             return false;
         }
 
-        player.event.trigger('template:hovering', 'show');
+        player.event.trigger('template:hovering');
     }
 
     player.$container.onmouseout = function() {
@@ -49,7 +63,7 @@ export default function(player) {
             return false;
         }
 
-        player.event.trigger('template:hovering', 'hide');
+        player.event.trigger('template:hovering');
     }
 
     player.$els.fbBtn.onclick = function() {

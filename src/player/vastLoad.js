@@ -2,33 +2,29 @@ import config from '../../config.js';
 import isPreview from '../utils/isPreview';
 import '../vendor/vast-client';
 
-var createSourceObjects = function(media_files) {
-    var sourcesByFormat = [],
-        media_file,
-        source,
-        a, b;
+export default function(player) {
+    function createSourceObjects(media_files) {
+        var sourcesByFormat = [],
+            media_file,
+            a, b;
 
-    for (a = 0, b = media_files.length; a < b; a++) {
-        media_file = media_files[a];
-        source = {
-            type: media_file.mimeType,
-            src: media_file.fileURL
-        };
+        for (a = 0, b = media_files.length; a < b; a++) {
+            media_file = media_files[a];
 
-        sourcesByFormat.push({
-            type: media_file.mimeType,
-            src: media_file.fileURL,
-            width: media_file.width,
-            height: media_file.height
-        });
+            sourcesByFormat.push({
+                type: media_file.mimeType,
+                src: media_file.fileURL,
+                width: media_file.width,
+                height: media_file.height,
+                apiFramework: media_file.apiFramework
+            });
+        }
+
+        return sourcesByFormat;
     }
 
-    return sourcesByFormat;
-}
-
-export default function(player) {
-    if (!config.path.vast || isPreview()) {
-        player.$els.play.show();
+    if (!config.path.vast || isPreview) {
+        player.$els.overlay.show();
 
         return false;
     }
@@ -47,20 +43,18 @@ export default function(player) {
                         foundCreative = false,
                         foundCompanion = false;
 
+                    if (creative.mediaFiles && creative.mediaFiles.length) {
+                        player.vast.sources = createSourceObjects(creative.mediaFiles);
+                    }
+
                     if (creative.type === "linear" && !foundCreative) {
-                        if (creative.mediaFiles.length) {
-                            player.vast.sources = createSourceObjects(creative.mediaFiles);
-
-                            if (!player.vast.sources.length) {
-                                player.event.trigger('vast:canceled');
-                                return;
-                            }
-
-                            player.vastTracker = new DMVAST.tracker(ad, creative);
-
-                            foundCreative = true;
+                        if (!player.vast.sources || !player.vast.sources.length) {
+                            player.event.trigger('vast:canceled');
+                            return;
                         }
 
+                        player.vastTracker = new DMVAST.tracker(ad, creative);
+                        foundCreative = true;
                     } else if (creative.type === "companion" && !foundCompanion) {
                         player.vast.companion = creative;
 

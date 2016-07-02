@@ -1,6 +1,8 @@
 <IfModule mod_headers.c>
-    Header set Access-Control-Allow-Origin "*"
+    Options -Indexes
 
     RewriteEngine On
     RewriteRule ^p(.*)\.js the-player.js [NC,L]
+
+    Header always set Access-Control-Allow-Origin "*"
 </IfModule>

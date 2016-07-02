@@ -1,7 +1,7 @@
 export default function(player) {
     var video = player.$els.video;
 
-     /**
+    /**
      * Initiate variables,
      * Add load video onload event
      * Add video helper methods
@@ -10,8 +10,16 @@ export default function(player) {
     video.playing = false;
 
     video.onloadeddata = function() {
-        player.event.trigger('video:loaded');
+        player.event.trigger('video:ready');
     };
+
+    video.onplay = function() {
+        this.playing = true;
+    }
+
+    video.onstop = function() {
+        this.playing = false;
+    }
 
     video.playVideo = function() {
         this.play();
@@ -21,6 +29,8 @@ export default function(player) {
 
     video.pauseVideo = function() {
         this.pause();
+
+        this.playing = false;
     }
 
     video.stopVideo = function() {

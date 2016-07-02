@@ -1,12 +1,12 @@
 import toMinutesStr from '../utils/toMinutesStr';
-import isMobile from '../utils/isMobile';
+import { isMobile, isIGadget } from '../utils/mobileCheck';
 
 export default function(player) {
     /**
      * If on mobile: initiate youtube video
      */
     window.onYouTubeIframeAPIReady = function() {
-        if (isMobile()) {
+        if (isMobile) {
             player.event.trigger('yt:init');
         }
     }
@@ -15,24 +15,37 @@ export default function(player) {
 
     player.ytReady = false;
 
-    var youtubeShow = function() {
-        player.$els.yt.show();
-
-        player.event.trigger('template:hovering', 'show');
-    }
-
     player.event.on('yt:init', function(evName, status) {
         /**
          * If youtube player is ready play the video from callback
          */
         if (player.ytReady) {
-            if (status != 'complete') {
+            if (!isMobile || (!player.vast && !isIGadget)) {
                 player.yt.playVideo();
-
-                return false;
             }
 
-            youtubeShow();
+            if (isMobile && status == 'complete') {
+                player.$els.yt.show();
+                player.$els.overlay.hide();
+            }
+
+            if (isMobile && !isIGadget) {
+                player.$els.yt.show();
+                player.$els.overlay.hide();
+
+                if (status == 'complete') {
+                    player.event.trigger('template:hovering');
+                }
+
+                if (status == 'skip') {
+                    player.yt.playVideo();
+                }
+            }
+
+            if (isIGadget && (status == 'vastless' || status == 'skip')) {
+                player.$els.yt.show();
+                player.$els.overlay.hide();
+            }
 
             return false;
         }
@@ -58,7 +71,8 @@ export default function(player) {
                     var mapped = {
                         0: 'ended',
                         1: 'playing',
-                        2: 'paused'
+                        2: 'paused',
+                        3: 'loading'
                     }
 
                     player.yt.status = e.data;
@@ -100,7 +114,19 @@ export default function(player) {
         player.yt.isFullscreen = false;
         player.ytReady = true;
 
-        if (!isMobile()) {
+        if (isMobile) {
+            player.$els.overlay.find('.icon-play').show();
+
+            if (player.vast) {
+                player.$els.video.show();
+            }
+
+            if (isIGadget && !player.vast) {
+                player.$els.yt.show();
+            }
+        }
+
+        if (!isMobile) {
             player.yt.playVideo();
         }
     })
@@ -110,14 +136,20 @@ export default function(player) {
             return false;
         }
 
-        player.$els.logo.show();
-
         if (player.yt.isPlaying()) {
-            youtubeShow();
+            // show: logo, youtube and it's hovering elements
+            player.$els.logo.show();
+            player.$els.yt.show();
+            player.event.trigger('template:hovering');
 
+            // hide: play overlay
+            player.$els.overlay.hide();
+
+            // add proper icon class for play control
             player.$els.playBtn.addClass('icon-pause');
             player.$els.playBtn.removeClass('icon-play');
 
+            // make request to app with event this name
             player.tracker.event({
                 event: evName
             });
@@ -140,7 +172,15 @@ export default function(player) {
         if (player.yt.isPaused()) {
             player.$els.playBtn.addClass('icon-play');
             player.$els.playBtn.removeClass('icon-pause');
+
+            player.event.trigger('template:hovering', 'show');
         }
+    })
+
+    player.event.on('yt:loading', function() {
+        player.$els.yt.show();
+
+        player.$els.overlay.find('.icon-play').hide();
     })
 
     player.event.on('yt:ended', function() {

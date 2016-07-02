@@ -1,13 +1,11 @@
 export default function(player) {
-    player.event.on('video:loaded', function() {
+    player.event.on('video:ready', function() {
         player.vastTracker.load();
+
+        player.$els.overlay.find('.icon-play').show();
     })
 
     player.event.on('video:play', function() {
-        player.$els.play.hide();
-        player.$els.poster.hide();
-        player.$els.logo.hide();
-
         if (player.vast) {
             player.$els.video.show();
             player.$els.target.show();
@@ -30,6 +28,9 @@ export default function(player) {
             return false;
         }
 
+        player.$els.overlay.hide();
+        player.$els.logo.hide();
+
         player.vastTracker.setProgress(player.video.getCurrentTime());
 
         if (player.video.finished()) {
@@ -40,18 +41,25 @@ export default function(player) {
     })
 
     player.event.on('video:next', function(evName, status) {
+        // hide VAST elements: video, countdown, ad link
         player.$els.video.hide();
         player.$els.countdown.hide();
         player.$els.target.hide();
 
+        // meanwhile: show overlay
+        player.$els.overlay.show();
+
+        // when complete send vast track event
         if (status == 'complete') {
             player.vastTracker.complete();
         }
 
+        // stop video on skip
         if (status == 'skip') {
-            player.video.pauseVideo();
+            player.video.stopVideo();
         }
 
+        // init youtube
         player.event.trigger('yt:init', status);
     })
 }
