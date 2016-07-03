@@ -179,6 +179,7 @@ export default function(player) {
 
     player.event.on('yt:loading', function() {
         player.$els.yt.show();
+        player.$els.logo.show();
 
         player.$els.overlay.find('.icon-play').hide();
     })

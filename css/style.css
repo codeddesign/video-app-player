@@ -6,6 +6,10 @@
     display: none !important;
 }
 
+.player__container.mobile .player__share {
+    display: none;
+}
+
 .player__container {
     font-family: Arial;
     display: flex;
