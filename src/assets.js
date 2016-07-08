@@ -1,27 +1,29 @@
-import config from '../../config';
-import $ from '../utils/element'
+import config from '../config';
+import $ from './utils/element'
 
 export default function() {
     var head = $(document).find('head'),
-        els = [
-        {
+        els = [{
+            tag: 'script',
+            options: {
+                src: 'https://www.youtube.com/iframe_api'
+            }
+        }, {
+            tag: 'script',
+            options: {
+                src: '//imasdk.googleapis.com/js/sdkloader/ima3.js'
+            }
+        }, {
             tag: 'link',
             options: {
                 rel: 'stylesheet',
                 href: config.path.player + '/css/style.css'
             }
-        },
-        {
+        }, {
             tag: 'link',
             options: {
                 rel: 'stylesheet',
                 href: config.path.player + '/css/glyphter-font/css/adzicons.css'
-            }
-        },
-        {
-            tag: 'script',
-            options: {
-                src: 'https://www.youtube.com/iframe_api'
             }
         }],
         attr;

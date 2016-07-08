@@ -1,3 +1,5 @@
 node_modules/
 config.js
 the-player.js
+rollup.dev.js
+test/vast3.xml

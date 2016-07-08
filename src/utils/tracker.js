@@ -1,7 +1,7 @@
 import config from '../../config';
 import isPreview from './isPreview';
 
-export default function(player) {
+export default function(app) {
     var self = this;
 
     this.route = config.path.app + '/track';
@@ -30,7 +30,7 @@ export default function(player) {
 
             self.tracked[data.event] = Date.now();
 
-            data.campaign = player.campaignId;
+            data.campaign = app.campaignId;
 
             var image = new Image();
             image.src = self.route + inlineData(data);
