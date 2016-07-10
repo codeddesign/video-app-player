@@ -1,5 +1,6 @@
 import config from '../../config';
-import { isIGadget } from '../utils/mobile';
+import { isMobile, isIGadget } from '../utils/mobile';
+import r from '../utils/referer';
 
 export default function(app) {
     var clickedPlay = false;
@@ -11,6 +12,23 @@ export default function(app) {
     var adDisplayContainer;
     var intervalTimer;
     var playButton = app.$els.overlay;
+
+    function getAdTagUrl() {
+        var mapped = {
+            __width: app.$container.offsetWidth,
+            __height: app.$container.offsetHeight,
+            __pathmain: encodeURIComponent(r.path.main),
+            __pathfull: encodeURIComponent(r.path.full)
+        };
+
+        var url = isMobile ? config.path.vast.mobile : config.path.vast.desktop;
+
+        Object.keys(mapped).forEach(function(key) {
+            url = url.replace(key, mapped[key]);
+        });
+
+        return url;
+    }
 
     function setUpIMA() {
         google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
@@ -39,7 +57,7 @@ export default function(app) {
 
         // Request video ads.
         adsRequest = new google.ima.AdsRequest();
-        adsRequest.adTagUrl = config.path.vast;
+        adsRequest.adTagUrl = getAdTagUrl();
 
         // Set ad sizes the same as container's in px
         adsRequest.linearAdSlotWidth = app.$container.offsetWidth;
