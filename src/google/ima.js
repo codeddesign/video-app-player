@@ -2,6 +2,8 @@ import config from '../../config';
 import { isIGadget } from '../utils/mobile';
 
 export default function(app) {
+    var clickedPlay = false;
+    var hadAutoPlay = false;
     var adError = false;
     var adsLoader;
     var adsRequest;
@@ -49,9 +51,20 @@ export default function(app) {
     }
 
     function playAds() {
+        clickedPlay = true;
+
+        app.$els.overlay.find('.icon-play').hide();
+
         if (adError) {
-            app.$els.overlay.find('.icon-play').hide();
             app.event.trigger('yt:init', 'aderror');
+
+            return false;
+        }
+
+        if (hadAutoPlay) {
+            app.event.trigger('yt:init', 'show');
+            app.event.trigger('yt:init', 'completed');
+
             return false;
         }
 
@@ -160,8 +173,12 @@ export default function(app) {
                 }
                 break;
             case google.ima.AdEvent.Type.ALL_ADS_COMPLETED:
-                app.event.trigger('yt:init', 'show');
+                if (!clickedPlay) {
+                    hadAutoPlay = true;
+                    return false;
+                }
 
+                app.event.trigger('yt:init', 'show');
                 app.event.trigger('yt:init', 'completed');
                 break;
             case google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED:
