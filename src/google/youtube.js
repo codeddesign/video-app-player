@@ -2,8 +2,6 @@ import toMinutesStr from '../utils/toMinutesStr';
 import { isMobile, isIGadget } from '../utils/mobile';
 
 export default function(app) {
-    app.yt = false;
-
     app.event.on('yt:init', function(evName, status) {
         if (app.ytReady) {
             if (status == 'show') {
@@ -58,8 +56,6 @@ export default function(app) {
                     app.yt.isPaused = function() {
                         return app.yt.status == 2;
                     }
-
-                    app.showPlayButton();
 
                     app.event.trigger('yt:ready');
                 },

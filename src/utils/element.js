@@ -137,6 +137,12 @@ export default function(source) {
             return this;
         }
 
+        this.source.isOnScreen = function() {
+            var bounds = this.getBoundingClientRect();
+
+            return bounds.top < window.innerHeight && bounds.bottom > 0;
+        }
+
         return this.source;
     }
 

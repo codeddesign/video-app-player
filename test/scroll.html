@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+</head>
+
+<body style="margin: 0; padding: 0;">
+    <div style="height: 1000px;background: red;"></div>
+    <div style="width: 50%; margin: 0 auto;">
+        <script type="text/javascript" id="test"></script>
+    </div>
+    <div style="height: 1000px;background: blue;"></div>
+    <script type="text/javascript">
+        (function() {
+            var $el = document.querySelector('#test');
+            $el.src = document.location.href.replace('/test/scroll.html', '/') + 'p1.js';
+        })();
+    </script>
+</body>
+
+</html>

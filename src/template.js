@@ -9,8 +9,13 @@ export default function(app) {
         campaignId = data[0],
         videoId = data[1];
 
+    if (videoId == 'js') {
+        app.hasYT = false;
+        videoId = campaignId;
+    }
+
     var html = `<div class="player__container" id="yt_${videoId}">
-            <div class="player__overlay" style="background-image: url(http://img.youtube.com/vi/${videoId}/maxresdefault.jpg);">
+            <div class="player__overlay" ${app.hasYT ? `style="background-image: url(http://img.youtube.com/vi/${videoId}/maxresdefault.jpg);"` : ''}>
                 <span class="icon-play"></span>
             </div>
             <div class="player__video yt hidden"></div>
@@ -77,6 +82,15 @@ export default function(app) {
 
         if (isIGadget) {
             app.$container.addClass('iDevice');
+        }
+    }
+
+    if (!app.hasYT) {
+        app.$els.overlay.hide();
+        app.$els.logo.hide();
+
+        if (isMobile) {
+            app.$container.hide();
         }
     }
 

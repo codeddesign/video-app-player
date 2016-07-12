@@ -13,17 +13,8 @@ let App = function() {
     this.event = new Event(this);
     this.tracker = new Tracker(this);
 
-    this.ytReady = false;
-    this.adReady = false;
-    this.showPlayButton = function() {
-        // if (!isMobile && this.adReady) {
-        //     this.$els.overlay.find('.icon-play').show();
-        // }
-
-        // if (isMobile && this.adReady && this.ytReady) {
-        //     this.$els.overlay.find('.icon-play').show();
-        // }
-    }
+    this.yt = false;
+    this.hasYT = true;
 
     assets();
 
@@ -37,12 +28,16 @@ let App = function() {
 
             template(self);
 
-            youtube(self);
+            if (self.hasYT) {
+                youtube(self);
+            }
 
             new ima(self);
 
             setInterval(function() {
-                self.event.trigger('yt:progressing');
+                if (self.hasYT) {
+                    self.event.trigger('yt:progressing');
+                }
             }, 1000);
         }
     }, 10);

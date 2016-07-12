@@ -16,7 +16,7 @@ export default function(app) {
     function getAdTagUrl() {
         var mapped = {
             __width: app.$container.offsetWidth,
-            __height: app.$container.offsetHeight,
+            __height: app.$container.offsetWidth,
             __pathmain: encodeURIComponent(r.path.main),
             __pathfull: encodeURIComponent(r.path.full)
         };
@@ -61,9 +61,9 @@ export default function(app) {
 
         // Set ad sizes the same as container's in px
         adsRequest.linearAdSlotWidth = app.$container.offsetWidth;
-        adsRequest.linearAdSlotHeight = app.$container.offsetHeight;
+        adsRequest.linearAdSlotHeight = app.$container.offsetWidth;
         adsRequest.nonLinearAdSlotWidth = app.$container.offsetWidth;
-        adsRequest.nonLinearAdSlotHeight = app.$container.offsetHeight;
+        adsRequest.nonLinearAdSlotHeight = app.$container.offsetWidth;
 
         adsLoader.requestAds(adsRequest);
     }
@@ -90,7 +90,7 @@ export default function(app) {
         adDisplayContainer.initialize();
 
         try {
-            adsManager.init(app.$container.offsetWidth, app.$container.offsetHeight, google.ima.ViewMode.NORMAL);
+            adsManager.init(app.$container.offsetWidth, app.$container.offsetWidth, google.ima.ViewMode.NORMAL);
 
             adsManager.start();
 
@@ -156,7 +156,26 @@ export default function(app) {
             onAdEvent
         );
 
-        // adsManager.init(app.$container.offsetWidth, app.$container.offsetHeight, google.ima.ViewMode.NORMAL);
+        // in view port
+        if (!app.hasYT && !isMobile) {
+            var backupPadding = window.getComputedStyle(app.$container).getPropertyValue('padding-bottom');
+            app.$container.style.paddingBottom = '0';
+
+            var onScreenInterval = setInterval(function() {
+                if (app.$container.isOnScreen()) {
+                    clearInterval(onScreenInterval);
+
+                    setTimeout(function() {
+                        // use original padding
+                        app.$container.style.paddingBottom = backupPadding;
+
+                        // start ad
+                        adsManager.init(app.$container.offsetWidth, app.$container.offsetHeight, google.ima.ViewMode.NORMAL);
+                        adsManager.start();
+                    }, 500);
+                }
+            }, 500);
+        }
     }
 
     function onAdEvent(ev) {
@@ -166,10 +185,6 @@ export default function(app) {
 
         switch (ev.type) {
             case google.ima.AdEvent.Type.LOADED:
-                // handle play button
-                app.adReady = true;
-                app.showPlayButton();
-
                 // This is the first event sent for an ad - it is possible to determine whether the ad is a video ad or an overlay.
                 if (!ad.isLinear()) {
                     app.event.trigger('yt:init');
@@ -191,6 +206,11 @@ export default function(app) {
                 }
                 break;
             case google.ima.AdEvent.Type.ALL_ADS_COMPLETED:
+                if (!app.hasYT) {
+                    app.$container.hide();
+                    return false;
+                }
+
                 if (!clickedPlay) {
                     hadAutoPlay = true;
                     return false;
@@ -218,10 +238,6 @@ export default function(app) {
         app.$container.addClass('aderror');
         app.$els.ad.hide();
         app.$els.yt.show();
-
-        // handle play button
-        app.adReady = true;
-        app.showPlayButton();
     }
 
     // init
