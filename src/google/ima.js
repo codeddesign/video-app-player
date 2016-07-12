@@ -235,9 +235,13 @@ export default function(app) {
             adsManager.destroy();
         }
 
-        app.$container.addClass('aderror');
         app.$els.ad.hide();
         app.$els.yt.show();
+
+        app.$container.addClass('aderror');
+        if (!app.hasYT) {
+            app.$container.hide();
+        }
     }
 
     // init
