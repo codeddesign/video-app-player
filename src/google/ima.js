@@ -15,8 +15,6 @@ export default function(app) {
 
     function getAdTagUrl() {
         var mapped = {
-            __width: app.$container.offsetWidth,
-            __height: app.$container.offsetWidth,
             __pathmain: encodeURIComponent(r.path.main),
             __pathfull: encodeURIComponent(r.path.full)
         };
@@ -61,9 +59,9 @@ export default function(app) {
 
         // Set ad sizes the same as container's in px
         adsRequest.linearAdSlotWidth = app.$container.offsetWidth;
-        adsRequest.linearAdSlotHeight = app.$container.offsetWidth;
+        adsRequest.linearAdSlotHeight = app.$container.offsetHeight;
         adsRequest.nonLinearAdSlotWidth = app.$container.offsetWidth;
-        adsRequest.nonLinearAdSlotHeight = app.$container.offsetWidth;
+        adsRequest.nonLinearAdSlotHeight = app.$container.offsetHeight;
 
         adsLoader.requestAds(adsRequest);
     }
@@ -90,7 +88,7 @@ export default function(app) {
         adDisplayContainer.initialize();
 
         try {
-            adsManager.init(app.$container.offsetWidth, app.$container.offsetWidth, google.ima.ViewMode.NORMAL);
+            adsManager.init(app.$container.offsetWidth, app.$container.offsetHeight, google.ima.ViewMode.NORMAL);
 
             adsManager.start();
 
