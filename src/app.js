@@ -6,41 +6,57 @@ import template from './template';
 import ima from './google/ima';
 import youtube from './google/youtube';
 import { isMobile } from './utils/mobile';
+import $ from './utils/element';
+import ajax from './utils/ajax';
+
+function googleLoaded() {
+    return typeof google !== 'undefined' && typeof YT !== 'undefined' && typeof YT.Player !== 'undefined'
+}
 
 let App = function() {
-    var self = this;
+    var self = this,
+        script = $(document).find(`script[src^="${config.path.player}"]`),
+        data = script.attr('src').split('/p')[1].split('.'),
+        campaignId = data[0],
+        waitGoogle;
 
+    this.campaignId = campaignId;
     this.event = new Event(this);
     this.tracker = new Tracker(this);
 
     this.yt = false;
-    this.hasYT = true;
 
     assets();
 
-    function googleLoaded() {
-        return typeof google !== 'undefined' && typeof YT !== 'undefined' && typeof YT.Player !== 'undefined'
-    }
-
-    var waitGoogle = setInterval(function() {
-        if (googleLoaded()) {
-            clearInterval(waitGoogle);
-
-            template(self);
-
-            if (self.hasYT) {
-                youtube(self);
-            }
-
-            new ima(self);
-
-            setInterval(function() {
-                if (self.hasYT) {
-                    self.event.trigger('yt:progressing');
-                }
-            }, 1000);
+    ajax().get(config.path.app + '/campaign/' + campaignId, function(request) {
+        var data;
+        if (request.status != 200) {
+            console.warn('Something went wrong while loading campaign');
+            return false;
         }
-    }, 10);
+
+        data = JSON.parse(request.response);
+
+        waitGoogle = setInterval(function() {
+            if (googleLoaded()) {
+                clearInterval(waitGoogle);
+
+                template(self, script, data);
+
+                if (self.hasYT) {
+                    youtube(self);
+                }
+
+                new ima(self);
+
+                setInterval(function() {
+                    if (self.hasYT) {
+                        self.event.trigger('yt:progressing');
+                    }
+                }, 1000);
+            }
+        }, 10);
+    });
 };
 
 

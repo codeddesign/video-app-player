@@ -117,9 +117,7 @@ export default function(app) {
             app.$els.playBtn.removeClass('icon-play');
 
             // make request to app with event this name
-            app.tracker.event({
-                event: evName
-            });
+            app.tracker.event('video', 'played', true);
         }
     })
 

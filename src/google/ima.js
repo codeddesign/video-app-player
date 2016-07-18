@@ -179,6 +179,8 @@ export default function(app) {
     function onAdEvent(ev) {
         console.info('ad:' + ev.type);
 
+        app.tracker.event('ad', ev.type);
+
         var ad = ev.getAd();
 
         switch (ev.type) {
@@ -227,7 +229,9 @@ export default function(app) {
     function onAdError(ev) {
         adError = ev.getError();
 
-        console.info(adError.getMessage());
+        console.error(adError.getMessage());
+
+        app.tracker.event('ad', 'failed:' + adError.getErrorCode());
 
         if (adsManager) {
             adsManager.destroy();

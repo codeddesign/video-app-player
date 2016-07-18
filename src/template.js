@@ -3,19 +3,18 @@ import config from '../config';
 import { isMobile, isIGadget } from './utils/mobile';
 import progressCursor from './utils/progressCursor';
 
-export default function(app) {
-    var script = $(document).find(`script[src^="${config.path.player}"]`),
-        data = script.attr('src').split('/p')[1].split('.'),
-        campaignId = data[0],
-        videoId = data[1];
+export default function(app, script, data) {
+    app.videoId = data.campaign.id;
 
-    if (videoId == 'js') {
-        app.hasYT = false;
-        videoId = campaignId;
+    app.hasYT = false;
+
+    if (data.campaign.videos.length) {
+        app.hasYT = true;
+        app.videoId = data.campaign.videos[0].url;
     }
 
-    var html = `<div class="player__container" id="yt_${videoId}">
-            <div class="player__overlay" ${app.hasYT ? `style="background-image: url(http://img.youtube.com/vi/${videoId}/maxresdefault.jpg);"` : ''}>
+    var html = `<div class="player__container" id="a3m_${app.videoId}">
+            <div class="player__overlay" ${app.hasYT ? `style="background-image: url(http://img.youtube.com/vi/${app.videoId}/maxresdefault.jpg);"` : ''}>
                 <span class="icon-play"></span>
             </div>
             <div class="player__video yt hidden"></div>
@@ -48,12 +47,9 @@ export default function(app) {
             <div class="player__video ad"></div>
         </div>`;
 
-    app.campaignId = campaignId;
-    app.videoId = videoId;
-
     script.replaceElement(html);
 
-    app.$container = $(document).find('#yt_' + videoId);
+    app.$container = $(document).find('#a3m_' + app.videoId);
 
     app.$els = {
         overlay: app.$container.find('.player__overlay'),

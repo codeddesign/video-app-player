@@ -23,17 +23,25 @@ export default function(app) {
     }
 
     return {
-        event: function(data) {
-            if (self.tracked[data.event] || isPreview) {
+        event: function(name, event, unique) {
+            var _trackId = name + '|' + event;
+
+            if (isPreview) {
                 return false;
             }
 
-            self.tracked[data.event] = Date.now();
+            if (unique && self.tracked[_trackId]) {
+                return false;
+            }
 
-            data.campaign = app.campaignId;
+            self.tracked[_trackId] = Date.now();
 
             var image = new Image();
-            image.src = self.route + inlineData(data);
+            image.src = self.route + inlineData({
+                i: app.campaignId,
+                n: name,
+                e: event
+            });
         }
     }
 }
