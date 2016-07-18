@@ -154,6 +154,11 @@ export default function(app) {
             onAdEvent
         );
 
+        adsManager.addEventListener(
+            google.ima.AdEvent.Type.CLICK,
+            onAdEvent
+        );
+
         // in view port
         if (!app.hasYT && !isMobile) {
             var backupPadding = window.getComputedStyle(app.$container).getPropertyValue('padding-bottom');
