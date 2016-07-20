@@ -13,7 +13,10 @@ export default function(app, script, data) {
         app.videoId = data.campaign.videos[0].url;
     }
 
-    var html = `<div class="player__container" id="a3m_${app.videoId}">
+    var random = Math.random().toString().replace('.', '');
+    var uniqueId = `a${app.videoId}_${random}`;
+
+    var html = `<div class="player__container" id="${uniqueId}">
             <div class="player__overlay" ${app.hasYT ? `style="background-image: url(http://img.youtube.com/vi/${app.videoId}/maxresdefault.jpg);"` : ''}>
                 <span class="icon-play"></span>
             </div>
@@ -49,7 +52,7 @@ export default function(app, script, data) {
 
     script.replaceElement(html);
 
-    app.$container = $(document).find('#a3m_' + app.videoId);
+    app.$container = $(document).find(`#${uniqueId}`);
 
     app.$els = {
         overlay: app.$container.find('.player__overlay'),

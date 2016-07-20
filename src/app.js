@@ -15,10 +15,12 @@ function googleLoaded() {
 
 let App = function() {
     var self = this,
-        script = $(document).find(`script[src^="${config.path.player}"]`),
+        script = $(document).find(`script[src^="${config.path.player}"]:not([active])`),
         data = script.attr('src').split('/p')[1].split('.'),
         campaignId = data[0],
         waitGoogle;
+
+    script.attr('active', true);
 
     this.campaignId = campaignId;
     this.event = new Event(this);
