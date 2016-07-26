@@ -16,7 +16,9 @@ export default function(app) {
     function getAdTagUrl() {
         var mapped = {
             __pathmain: encodeURIComponent(r.path.main),
-            __pathfull: encodeURIComponent(r.path.full)
+            __pathfull: encodeURIComponent(r.path.full),
+            __width: app.$container.offsetWidth,
+            __height: app.$container.offsetHeight
         };
 
         var url = isMobile ? config.path.vast.mobile : config.path.vast.desktop;
