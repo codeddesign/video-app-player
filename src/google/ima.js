@@ -44,11 +44,9 @@ export default function(app) {
         }
 
         var mapped = {
-            '[referrer_url]': encodeURIComponent(r.path.full),
             '[description_url]': encodeURIComponent(r.path.full),
             '[width]': app.$container.offsetWidth,
-            '[height]': app.$container.offsetHeight,
-            '[timestamp]': Date.now()
+            '[height]': app.$container.offsetHeight
         };
 
         var url = isMobile ? app.data.tags.general.mobile : app.data.tags.general.desktop;
