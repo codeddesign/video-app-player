@@ -14,6 +14,12 @@ export default function(app) {
     var playButton = app.$els.overlay;
 
     function getAdTagUrl() {
+        // temporarily:
+        app.$container.style.maxWidth = '640px';
+        app.$container.style.maxHeight = '360px';
+        app.$container.style.margin = '0 auto';
+        app.data.campaign.size = 'medium';
+
         switch (app.data.campaign.size) {
             case 'hd720':
                 app.$container.style.width = '1280px';
