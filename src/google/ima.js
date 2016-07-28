@@ -14,14 +14,38 @@ export default function(app) {
     var playButton = app.$els.overlay;
 
     function getAdTagUrl() {
+        switch (app.data.campaign.size) {
+            case 'hd720':
+                app.$container.style.width = '1280px';
+                app.$container.style.height = '720px';
+                break;
+            case 'large':
+                app.$container.style.width = '853px';
+                app.$container.style.height = '480px';
+                break;
+            case 'medium':
+                app.$container.style.width = '640px';
+                app.$container.style.height = '360px';
+                break;
+            case 'small':
+                app.$container.style.width = '560px';
+                app.$container.style.height = '315px';
+                break;
+        }
+
+        if (app.data.campaign.size != 'auto') {
+            app.$container.style.paddingBottom = '0';
+        }
+
         var mapped = {
-            __pathmain: encodeURIComponent(r.path.main),
-            __pathfull: encodeURIComponent(r.path.full),
-            __width: app.$container.offsetWidth,
-            __height: app.$container.offsetHeight
+            '[referrer_url]': encodeURIComponent(r.path.full),
+            '[description_url]': encodeURIComponent(r.path.full),
+            '[width]': app.$container.offsetWidth,
+            '[height]': app.$container.offsetHeight,
+            '[timestamp]': Date.now()
         };
 
-        var url = isMobile ? config.path.vast.mobile : config.path.vast.desktop;
+        var url = isMobile ? app.data.tags.general.mobile : app.data.tags.general.desktop;
 
         Object.keys(mapped).forEach(function(key) {
             url = url.replace(key, mapped[key]);

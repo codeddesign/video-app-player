@@ -3,14 +3,14 @@ import config from '../config';
 import { isMobile, isIGadget } from './utils/mobile';
 import progressCursor from './utils/progressCursor';
 
-export default function(app, script, data) {
-    app.videoId = data.campaign.id;
+export default function(app, script) {
+    app.videoId = app.data.campaign.id;
 
     app.hasYT = false;
 
-    if (data.campaign.videos.length) {
+    if (app.data.campaign.videos.length) {
         app.hasYT = true;
-        app.videoId = data.campaign.videos[0].url;
+        app.videoId = app.data.campaign.videos[0].url;
     }
 
     var random = Math.random().toString().replace('.', '');

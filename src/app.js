@@ -28,22 +28,23 @@ let App = function() {
 
     this.yt = false;
 
+    this.data = false;
+
     assets();
 
     ajax().get(config.path.app + '/campaign/' + campaignId, function(request) {
-        var data;
         if (request.status != 200) {
             console.warn('Something went wrong while loading campaign');
             return false;
         }
 
-        data = JSON.parse(request.response);
+        self.data = JSON.parse(request.response);
 
         waitGoogle = setInterval(function() {
             if (googleLoaded()) {
                 clearInterval(waitGoogle);
 
-                template(self, script, data);
+                template(self, script);
 
                 if (self.hasYT) {
                     youtube(self);
