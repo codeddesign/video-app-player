@@ -232,8 +232,8 @@ iframe.player__video.hidden {
     position: absolute !important;
     left: 0;
     width: 100%;
-    /*top: 0;*/
-    top: 9px;
+    top: 0;
+    /*top: 9px;*/
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
 }
@@ -250,8 +250,10 @@ iframe.player__video.hidden {
     width: 70%;
     margin: 0 auto;
     font-family: sans-serif !important;
-    color: #FFFFFF !important;
+    font-weight: 500 !important;
+    color: #000000 !important;
     text-align: center;
+    background: #FFFFFF !important;
 }
 
 .player__code span {
