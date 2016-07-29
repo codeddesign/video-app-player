@@ -17,7 +17,7 @@ export default function(app, script) {
     var uniqueId = `a${app.videoId}_${random}`;
 
     var html = `<div style="max-width:640px;position:relative;margin: 0px auto;"><div class="player__container" id="${uniqueId}">
-            <div class="player__overlay" ${app.hasYT ? `style="background-image: url(http://img.youtube.com/vi/${app.videoId}/maxresdefault.jpg);"` : ''}>
+            <div class="player__overlay" ${app.hasYT ? `style="background-image: url(http://img.youtube.com/vi/${app.videoId}/hqdefault.jpg);"` : ''}>
                 <span class="icon-play"></span>
             </div>
             <div class="player__video yt hidden"></div>
@@ -152,7 +152,7 @@ export default function(app, script) {
         FB.ui({
             method: 'share',
             mobile_iframe: true,
-            href: 'http://google.com',
+            href: 'http://ad3media.com',
         }, function(response) {});
     }
 
@@ -160,7 +160,7 @@ export default function(app, script) {
         app.yt.pauseVideo();
 
         window.open(
-            'https://twitter.com/share?url=' + escape(parent.top.location.href) + '&text=hello',
+            'https://twitter.com/share?url=' + escape(parent.top.location.href) + '&text=Watch this!',
             '',
             'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600'
         );
