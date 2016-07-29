@@ -1,6 +1,7 @@
 import config from '../../config';
 import { isMobile, isIGadget } from '../utils/mobile';
 import r from '../utils/referer';
+import isTest from '../utils/isTest';
 
 export default function(app) {
     var clickedPlay = false;
@@ -49,7 +50,15 @@ export default function(app) {
             '[height]': app.$container.offsetHeight
         };
 
+        var usingTest = isTest && TESTING.tag;
+
         var url = isMobile ? app.data.tags.general.mobile : app.data.tags.general.desktop;
+
+        if (usingTest) {
+            url = TESTING.tag;
+
+            console.info('Using test: ' + url);
+        }
 
         Object.keys(mapped).forEach(function(key) {
             url = url.replace(key, mapped[key]);
@@ -264,7 +273,9 @@ export default function(app) {
     function onAdError(ev) {
         adError = ev.getError();
 
-        console.error(adError.getMessage());
+        console.info(
+            'error:', adError.getErrorCode(), '[' + adError.getMessage() + ']'
+        );
 
         app.tracker.event('ad', 'failed:' + adError.getErrorCode());
 
