@@ -16,7 +16,8 @@ export default function(app, script) {
     var random = Math.random().toString().replace('.', '');
     var uniqueId = `a${app.videoId}_${random}`;
 
-    var html = `<div style="max-width:640px;position:relative;margin: 0px auto;"><div class="player__container" id="${uniqueId}">
+    var html = `<div style="max-width:640px;max-height: 360px;position:relative;margin: 0px auto;">
+        <div class="player__container" id="${uniqueId}">
             <div class="player__overlay" ${app.hasYT ? `style="background-image: url(http://img.youtube.com/vi/${app.videoId}/hqdefault.jpg);"` : ''}>
                 <span class="icon-play"></span>
             </div>
@@ -48,7 +49,8 @@ export default function(app, script) {
             </div>
 
             <div class="player__video ad"></div>
-        </div></div>`;
+        </div>
+    </div>`;
 
     script.replaceElement(html);
 

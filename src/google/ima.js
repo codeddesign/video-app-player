@@ -15,33 +15,33 @@ export default function(app) {
 
     function getAdTagUrl() {
         // temporarily:
-        app.$container.style.maxWidth = '640px';
-        app.$container.style.maxHeight = '360px';
-        app.$container.style.margin = '0 auto';
-        app.data.campaign.size = 'medium';
+        // app.$container.style.maxWidth = '640px';
+        // app.$container.style.maxHeight = '360px';
+        // app.$container.style.margin = '0 auto';
+        // app.data.campaign.size = 'medium';
 
-        switch (app.data.campaign.size) {
-            case 'hd720':
-                app.$container.style.width = '1280px';
-                app.$container.style.height = '720px';
-                break;
-            case 'large':
-                app.$container.style.width = '853px';
-                app.$container.style.height = '480px';
-                break;
-            case 'medium':
-                app.$container.style.width = '640px';
-                app.$container.style.height = '360px';
-                break;
-            case 'small':
-                app.$container.style.width = '560px';
-                app.$container.style.height = '315px';
-                break;
-        }
+        // switch (app.data.campaign.size) {
+        //     case 'hd720':
+        //         app.$container.style.width = '1280px';
+        //         app.$container.style.height = '720px';
+        //         break;
+        //     case 'large':
+        //         app.$container.style.width = '853px';
+        //         app.$container.style.height = '480px';
+        //         break;
+        //     case 'medium':
+        //         app.$container.style.width = '640px';
+        //         app.$container.style.height = '360px';
+        //         break;
+        //     case 'small':
+        //         app.$container.style.width = '560px';
+        //         app.$container.style.height = '315px';
+        //         break;
+        // }
 
-        if (app.data.campaign.size != 'auto') {
-            app.$container.style.paddingBottom = '0';
-        }
+        // if (app.data.campaign.size != 'auto') {
+        //     app.$container.style.paddingBottom = '0';
+        // }
 
         var mapped = {
             '[description_url]': encodeURIComponent(r.path.full),
