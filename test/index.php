@@ -1,4 +1,6 @@
 <?php
+require 'browser.php';
+
 if (isset($_GET['c'])) {
     $tagId = trim($_GET['c']);
 
@@ -8,7 +10,16 @@ if (isset($_GET['c'])) {
     }
 
     $campaign = 22;
-    $tagUrl = trim($tags[$tagId]);
+    $tag = $tags[$tagId];
+
+    $tagUrl = $tag['desktop'];
+    if (browserIs('mobile')) {
+        if (!isset($tag['mobile'])) {
+            exit('There\'s not mobile tag for this demo.');
+        }
+
+        $tagUrl = $tag['mobile'];
+    }
 }
 ?>
 <!DOCTYPE html>
