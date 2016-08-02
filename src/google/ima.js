@@ -25,10 +25,12 @@ export default function Ad(app) {
 }
 
 Ad.prototype.getAdTagUrl = function() {
-    var mapped = {
+    var width = this.APP.$container.offsetWidth,
+        height = this.APP.$container.offsetHeight,
+        mapped = {
             '[description_url]': encodeURIComponent(r.path.full),
-            '[width]': this.APP.$container.offsetWidth,
-            '[height]': this.APP.$container.offsetHeight
+            '[width]': width || 640,
+            '[height]': height || 360
         },
         tags = this.APP.data.tags,
         usingTest = isTest && TESTING.tag,
