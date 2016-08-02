@@ -183,6 +183,17 @@ Ad.prototype.onAdError = function(ev, source) {
     this.APP.$els.yt.show();
 
     this.APP.$container.addClass('aderror');
+
+    if (!this.APP.hasYT) {
+        this.APP.event.trigger('yt:init', 'aderror');
+
+        return false;
+    }
+
+    if (this.APP.isStream) {
+        self.APP.$container.style.paddingBottom = '0';
+        return false;
+    }
 };
 
 Ad.prototype.onAdEvent = function(ev) {
@@ -210,7 +221,7 @@ Ad.prototype.onAdEvent = function(ev) {
 
             break;
         case google.ima.AdEvent.Type.COMPLETE:
-            if(this.APP.isStream) {
+            if (this.APP.isStream) {
                 this.APP.$container.style.paddingBottom = '0';
             }
 
