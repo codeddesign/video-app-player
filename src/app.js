@@ -30,6 +30,8 @@ let App = function() {
 
     this.data = false;
 
+    this.isStream = false;
+
     assets();
 
     ajax().get(config.path.app + '/campaign/' + campaignId, function(request) {
@@ -39,6 +41,8 @@ let App = function() {
         }
 
         self.data = JSON.parse(request.response);
+
+        self.isStream = self.data.info.type == 'onscrolldisplay';
 
         waitGoogle = setInterval(function() {
             if (googleLoaded()) {

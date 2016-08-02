@@ -21,7 +21,17 @@
     overflow: hidden;
     width: 100%;
     padding-top: 0;
+    -moz-transition: padding-bottom .8s ease-in-out;
+    -ms-transition: padding-bottom .8s ease-in-out;
+    -o-transition: padding-bottom .8s ease-in-out;
+    -webkit-transition: padding-bottom .8s ease-in-out;
+    transition: padding-bottom .8s;
 }
+
+.player__container.stream {
+    padding-bottom: 0;
+}
+
 
 .player__overlay {
     z-index: 1;
