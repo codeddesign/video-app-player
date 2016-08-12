@@ -2,6 +2,7 @@ import $ from './utils/element';
 import config from '../config';
 import { isMobile, isIGadget } from './utils/mobile';
 import progressCursor from './utils/progressCursor';
+import random from './utils/random';
 
 export default function(app, script) {
     app.videoId = app.data.campaign.id;
@@ -13,13 +14,23 @@ export default function(app, script) {
         app.videoId = app.data.campaign.videos[0].url;
     }
 
-    var random = Math.random().toString().replace('.', '');
-    var uniqueId = `a${app.videoId}_${random}`;
+    var uniqueId = `a${app.videoId}_${random()}`;
 
     var html = `<div style="max-width:640px;max-height: 360px;position:relative;margin: 0px auto;">
         <div class="player__container hidden" id="${uniqueId}">
             <div class="player__overlay" ${app.hasYT ? `style="background-image: url(http://img.youtube.com/vi/${app.videoId}/hqdefault.jpg);"` : ''}>
-                <span class="icon-play"></span>
+                <span class="icon-play hidden"></span>
+            </div>
+            <div class="sk-cube-grid">
+              <div class="sk-cube sk-cube1"></div>
+              <div class="sk-cube sk-cube2"></div>
+              <div class="sk-cube sk-cube3"></div>
+              <div class="sk-cube sk-cube4"></div>
+              <div class="sk-cube sk-cube5"></div>
+              <div class="sk-cube sk-cube6"></div>
+              <div class="sk-cube sk-cube7"></div>
+              <div class="sk-cube sk-cube8"></div>
+              <div class="sk-cube sk-cube9"></div>
             </div>
             <div class="player__video yt hidden"></div>
 
@@ -47,8 +58,8 @@ export default function(app, script) {
                 <span>Add this code to your website</span>
                 <textarea rows="2">${script.outerHTML.trim()}</textarea>
             </div>
-
-            <div class="player__video ad"></div>
+            <span class="player__video-close hidden">&times;</span>
+            <span class="player__video-sound hidden icon-mute"></span>
         </div>
     </div>`;
 
@@ -60,7 +71,6 @@ export default function(app, script) {
         overlay: app.$container.find('.player__overlay'),
         share: app.$container.find('.player__share'),
         yt: app.$container.find('div.player__video.yt'),
-        ad: app.$container.find('div.player__video.ad'),
         controls: app.$container.find('.player__controls'),
         timeCurrent: app.$container.find('.player__controls .time .current'),
         timeTotal: app.$container.find('.player__controls .time .total'),
@@ -75,7 +85,10 @@ export default function(app, script) {
         codeClose: app.$container.find('.player__code .close'),
         textarea: app.$container.find('.player__code textarea'),
         hovering: app.$container.findAll('.hovering'),
-        logo: app.$container.find('.player__logo')
+        logo: app.$container.find('.player__logo'),
+        loading: app.$container.find('.sk-cube-grid'),
+        adClose: app.$container.find('.player__video-close'),
+        adSound: app.$container.find('.player__video-sound'),
     }
 
     if (app.isStream) {

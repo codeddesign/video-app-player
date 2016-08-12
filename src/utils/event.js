@@ -1,4 +1,4 @@
-export default function(app) {
+export default function(player) {
     var event = function() {
         this.list = {};
     };
@@ -15,7 +15,7 @@ export default function(app) {
         }
 
         if (name.indexOf('ing') == -1) {
-            console.info(name + ((status) ? '|' + status : ''));
+            console.info(name);
         }
 
         this.list[name].apply(this, arguments);

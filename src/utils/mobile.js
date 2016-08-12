@@ -5,3 +5,8 @@ export var isMobile = (function() {
 export var isIGadget = (function() {
     return /webOS|iPhone|iPad|iPod/i.test(navigator.userAgent)
 })()
+
+
+export var isIPhone = (function() {
+    return /iPhone|iPod/i.test(navigator.userAgent)
+})()

@@ -3,9 +3,14 @@ import { isMobile, isIGadget } from '../utils/mobile';
 
 export default function(app) {
     app.event.on('yt:init', function(evName, status) {
+        if (!app.hasYT) {
+            return false;
+        }
+
         if (app.ytReady) {
             if (status == 'show') {
-                app.$els.ad.hide();
+                app.AD ? app.AD.$el.hide() : false;
+
                 app.$els.yt.show();
             }
 
@@ -110,7 +115,7 @@ export default function(app) {
 
             // hide: play overlay
             app.$els.overlay.hide();
-            app.$els.ad.hide();
+            app.AD ? app.AD.$el.hide() : false;
 
             // add proper icon class for play control
             app.$els.playBtn.addClass('icon-pause');

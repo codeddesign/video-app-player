@@ -9,7 +9,12 @@ if (isset($_GET['c'])) {
         exit('This page is not available');
     }
 
-    $campaign = 22;
+    $campaign = !isset($_GET['l']) ? 22 : 1;
+    if (stripos($tagId, 'stream') !== false) {
+        $campaign = !isset($_GET['l']) ? 269 : 2;
+        $isStream = '';
+    }
+
     $tag = $tags[$tagId];
 
     $tagUrl = $tag['desktop'];
@@ -32,7 +37,9 @@ if (isset($_GET['c'])) {
 </head>
 
 <body>
-    <div class="container">
+    <style>div.container { padding-top: 30px }</style>
+
+    <div class="container forForm">
         <div class="col-md-8 col-md-push-2">
             <div class="row <?= isset($campaign) ? 'hidden' : ''; ?>">
                 <form style="margin: 20px;" id="testForm">
@@ -50,39 +57,49 @@ if (isset($_GET['c'])) {
                     </div>
 
                     <div class="text-right">
-                        <button type="submit" class="btn btn-default">Submit</button>
+                        <button type="submit" class="btn btn-default" id="go">Submit</button>
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
 
+    <div class="container forText">
+    <?php if (isset($isStream) || isset($_GET['l'])) {
+    for ($i = 0;$i < 15;++$i) {
+        ?>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <?php
+    }
+}?>
+    </div>
+
+    <div class="container forAd" style="background: aliceblue;padding: 20px 0;">
+        <div class="col-md-8 col-md-push-2">
             <div class="row" id="test">
                 <script type="text/javascript" id="test"></script>
             </div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container forText">
+    <?php if (isset($isStream) || 1 == 1) {
+    for ($i = 0;$i < 15;++$i) {
+        ?>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
         cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <?php
+    }
+}?>
     </div>
 
     <script type="text/javascript">
@@ -108,7 +125,7 @@ if (isset($_GET['c'])) {
                 script = document.createElement('script');
                 script.src = document.location.protocol + '//'
                     + document.location.host
-                    + '/p' + TESTING.campaign + '.js';
+                    + '/p' + TESTING.campaign + '.js?ts=' + Date.now();
 
                 $test.appendChild(script);
             }

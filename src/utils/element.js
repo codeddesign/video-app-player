@@ -137,10 +137,19 @@ export default function(source) {
             return this;
         }
 
-        this.source.isOnScreen = function() {
-            var bounds = this.getBoundingClientRect();
+        this.source.onScreen = function() {
+            var bounds = this.getBoundingClientRect(),
+                itIs = bounds.top < window.innerHeight && bounds.bottom > 0,
+                halfHight = bounds.height / 2,
+                topAbs = Math.abs(bounds.top),
+                diffAbs = window.innerHeight - topAbs,
+                mustPause = (bounds.top < 0 && topAbs >= halfHight) || (diffAbs <= halfHight) || false;
 
-            return bounds.top < window.innerHeight && bounds.bottom > 0;
+            return {
+                bounds,
+                itIs,
+                mustPause
+            };
         }
 
         return this.source;

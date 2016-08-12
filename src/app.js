@@ -8,9 +8,14 @@ import youtube from './google/youtube';
 import { isMobile } from './utils/mobile';
 import $ from './utils/element';
 import ajax from './utils/ajax';
+import Tags from './utils/tags';
 
 function googleLoaded() {
     return typeof google !== 'undefined' && typeof YT !== 'undefined' && typeof YT.Player !== 'undefined'
+}
+
+function isDashbid(ad) {
+    return ad.tagUrl.indexOf('dashbid') !== -1;
 }
 
 let App = function() {
@@ -32,6 +37,8 @@ let App = function() {
 
     this.isStream = false;
 
+    this.AD = false;
+
     assets();
 
     ajax().get(config.path.app + '/campaign/' + campaignId, function(request) {
@@ -44,17 +51,62 @@ let App = function() {
 
         self.isStream = self.data.info.type == 'onscrolldisplay';
 
+        var tags = new Tags(self),
+            ad,
+            ads = [];
+
         waitGoogle = setInterval(function() {
             if (googleLoaded()) {
                 clearInterval(waitGoogle);
 
                 template(self, script);
 
-                if (self.hasYT) {
-                    youtube(self);
-                }
+                youtube(self);
 
-                new ima(self);
+                var tagUrls = (new Tags(self)).urls();
+
+                tagUrls.forEach(function(tagUrl) {
+                    ad = new ima(self);
+                    ad.setUpIMA(tagUrl, function() {
+                        ads.push(this);
+
+                        if (ads.length == tagUrls.length) {
+                            self.$els.overlay.find('.icon-play').show();
+
+                            for (var i = 0; i < ads.length; i++) {
+                                if (ads[i].adError) {
+                                    continue;
+                                }
+
+                                if (!self.AD) {
+                                    self.AD = ads[i];
+                                    self.AD.$el.show();
+                                }
+
+                                // switch from dashbid
+                                if (self.AD && isDashbid(self.AD) && !isDashbid(ads[i])) {
+                                    self.AD.$el.hide();
+
+                                    self.AD = ads[i];
+                                    self.AD.$el.show();
+                                    continue;
+                                }
+                            }
+                        }
+                    });
+                });
+
+                self.$els.overlay.addEventListener('click', function() {
+                    self.$els.overlay.find('.icon-play').hide();
+
+                    if (self.AD) {
+                        self.AD.playAd();
+
+                        return false;
+                    }
+
+                    self.event.trigger('yt:init');
+                });
 
                 setInterval(function() {
                     if (self.hasYT) {
