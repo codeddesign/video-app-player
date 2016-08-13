@@ -79,7 +79,7 @@ if (isset($_GET['c'])) {
 }?>
     </div>
 
-    <div class="container forAd" style="background: aliceblue;padding: 20px 0;">
+    <div class="container forAd" style="padding: 0;">
         <div class="col-md-8 col-md-push-2">
             <div class="row" id="test">
                 <script type="text/javascript" id="test"></script>

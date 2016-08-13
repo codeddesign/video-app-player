@@ -17,6 +17,7 @@ export default function(app, script) {
     var uniqueId = `a${app.videoId}_${random()}`;
 
     var html = `<div style="max-width:640px;max-height: 360px;position:relative;margin: 0px auto;">
+        <div class="player__video-close hidden">CLOSE <img src="/css/images/closeicon.png"></div>
         <div class="player__container hidden" id="${uniqueId}">
             <div class="player__overlay" ${app.hasYT ? `style="background-image: url(http://img.youtube.com/vi/${app.videoId}/hqdefault.jpg);"` : ''}>
                 <span class="icon-play hidden"></span>
@@ -58,7 +59,6 @@ export default function(app, script) {
                 <span>Add this code to your website</span>
                 <textarea rows="2">${script.outerHTML.trim()}</textarea>
             </div>
-            <span class="player__video-close hidden">&times;</span>
             <span class="player__video-sound hidden icon-mute"></span>
         </div>
     </div>`;
@@ -87,7 +87,7 @@ export default function(app, script) {
         hovering: app.$container.findAll('.hovering'),
         logo: app.$container.find('.player__logo'),
         loading: app.$container.find('.sk-cube-grid'),
-        adClose: app.$container.find('.player__video-close'),
+        adClose: $(app.$container.parentNode).find('.player__video-close'),
         adSound: app.$container.find('.player__video-sound'),
     }
 
