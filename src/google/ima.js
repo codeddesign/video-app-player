@@ -164,7 +164,7 @@ Ad.prototype.onScrollDisplay = function() {
         this.adsManager.setVolume(0);
     }.bind(this));
 
-    this.APP.$container.style.paddingBottom = 0;
+    this.APP.$container.style.paddingBottom = '0';
 
     ['scroll', 'touchstart', 'touchend'].forEach(function(evName) {
         document.addEventListener(evName, function() {
@@ -184,6 +184,9 @@ Ad.prototype.onScrollDisplay = function() {
 
                 self.APP.$els.adClose.addEventListener('click', function(ev) {
                     ev.stopPropagation();
+
+                    this.hide();
+                    self.APP.$container.style.paddingBottom = '0';
 
                     self.adsManager.stop();
 
@@ -263,11 +266,12 @@ Ad.prototype.onScrollDisplay = function() {
                 return false;
             }
 
-            if (onscreen.itIs) {
+            if (onscreen.mustShow) {
                 if (!transitioned) {
                     transitioned = true;
 
                     self.APP.$container.style.paddingBottom = '56.25%';
+                    return false;
                 }
 
                 if (!started && transitioned && (evName == 'touchend' || !isMobile)) {
@@ -337,7 +341,7 @@ Ad.prototype.onAdEvent = function(ev) {
     switch (ev.type) {
         case google.ima.AdEvent.Type.LOADED:
             // This is the first event sent for an ad - it is possible to determine whether the ad is a video ad or an overlay.
-            if (!ad.isLinear() && 1==2) {
+            if (!ad.isLinear() && 1 == 2) {
                 this.APP.event.trigger('yt:init');
             }
 

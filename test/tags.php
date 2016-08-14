@@ -34,4 +34,10 @@ return [
         'desktop' => 'http://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuox3Q23PcgCqzpUQV5FhImamwEfbN5RuWS4pbRllh23Sjsfu+2JacC8Am1+c_s+VmIC?cb=[CACHE_BREAKER]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
         'mobile' => 'http://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuoxeBfXnDZIwwtjIreM0olKNxJ6uQH9E_n8Zh_XzOZxMa2g63SWosWzAw==?cb=[CACHE_BREAKER]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
     ],
+
+    'beachfront_stream' => [
+        'mobile' => 'https://ioms.bfmio.com/getBFMT?aid=ef4dc435-43d8-48f5-b123-229bc00c49b6&i_type=out&v=1',
+        'desktop' => 'https://ioms.bfmio.com/getBFMT?aid=ef4dc435-43d8-48f5-b123-229bc00c49b6&i_type=out&v=1',
+    ],
+
 ];

@@ -139,16 +139,17 @@ export default function(source) {
 
         this.source.onScreen = function() {
             var bounds = this.getBoundingClientRect(),
-                itIs = bounds.top < window.innerHeight && bounds.bottom > 0,
-                halfHight = bounds.height / 2,
+                halfHight = (bounds.height || 360) / 2,
                 topAbs = Math.abs(bounds.top),
                 diffAbs = window.innerHeight - topAbs,
+                inView = bounds.top < window.innerHeight && bounds.bottom > 0,
+                fiftyPercent = diffAbs >= halfHight,
                 mustPause = (bounds.top < 0 && topAbs >= halfHight) || (diffAbs <= halfHight) || false;
 
             return {
-                bounds,
-                itIs,
-                mustPause
+                bounds: bounds,
+                mustShow: inView && fiftyPercent,
+                mustPause: mustPause
             };
         }
 

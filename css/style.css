@@ -21,6 +21,7 @@
     overflow: hidden;
     width: 100%;
     padding-top: 0;
+    clear: both;
 }
 
 .player__container.stream {
@@ -381,6 +382,8 @@ iframe.player__video.hidden {
     font-weight: bold;
     text-align: right;
     padding-bottom: 5px;
+    display: inline-block;
+    float: right;
 }
 
 .player__video-sound {
