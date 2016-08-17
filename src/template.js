@@ -17,7 +17,7 @@ export default function(app, script) {
     var uniqueId = `a${app.videoId}_${random()}`;
 
     var html = `<div style="max-width:640px;max-height: 379px;position:relative;margin: 0px auto;">
-        <div class="player__video-close hidden">CLOSE <img src="/css/images/closeicon.png"></div>
+        <div class="player__video-close hidden">CLOSE <img src="//a3m.io:8000/css/images/closeicon.png"></div>
         <div class="player__container hidden" id="${uniqueId}">
             <div class="player__overlay" ${app.hasYT ? `style="background-image: url(http://img.youtube.com/vi/${app.videoId}/hqdefault.jpg);"` : ''}>
                 <span class="icon-play hidden"></span>
