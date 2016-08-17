@@ -309,7 +309,10 @@ Ad.prototype.onAdError = function(ev, source) {
 
     console.warn(this.errorSource, '[', code, '-', info, ']', this.adId);
 
-    this.APP.tracker.event(this.errorSource, 'failed:' + this.adError.getErrorCode());
+    if(this.errorSource == 'ad') {
+        this.APP.tracker.event(this.errorSource, 'failed:' + this.adError.getErrorCode());
+        this.APP.$container.addClass('aderror');
+    }
 
     if (this.adsManager) {
         this.adsManager.destroy();
@@ -317,10 +320,6 @@ Ad.prototype.onAdError = function(ev, source) {
 
     this.$el.hide();
     this.APP.$els.yt.show();
-
-    if(this.errorSource == 'ad') {
-        this.APP.$container.addClass('aderror');
-    }
 
     if (this.APP.hasYT && (this.hadAutoPlay || this.clickedPlay)) {
         this.APP.event.trigger('yt:init', 'aderror');
