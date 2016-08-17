@@ -86,6 +86,7 @@ Ad.prototype.onAdsManagerLoaded = function(event) {
     var adsRenderingSettings = new google.ima.AdsRenderingSettings();
 
     adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
+    adsRenderingSettings.loadVideoTimeout = 30 * 1000;
 
     // videoContent should be set to the content video element.
     this.adsManager = event.getAdsManager(
