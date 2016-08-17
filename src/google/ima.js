@@ -318,7 +318,9 @@ Ad.prototype.onAdError = function(ev, source) {
     this.$el.hide();
     this.APP.$els.yt.show();
 
-    this.APP.$container.addClass('aderror');
+    if(this.errorSource == 'ad') {
+        this.APP.$container.addClass('aderror');
+    }
 
     if (this.APP.hasYT && (this.hadAutoPlay || this.clickedPlay)) {
         this.APP.event.trigger('yt:init', 'aderror');
