@@ -73,7 +73,7 @@ Ad.prototype.setUpIMA = function(tagUrl, onLoadCallback) {
     this.adsLoader = new google.ima.AdsLoader(this.adDisplayContainer);
 
     // Vpaid set
-    this.adsLoader.getSettings().setVpaidMode(2);
+    this.adsLoader.getSettings().setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
 
     this.adsLoader.addEventListener(
         google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
