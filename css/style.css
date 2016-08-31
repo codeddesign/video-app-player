@@ -394,7 +394,7 @@ iframe.player__video.hidden {
 
 .player__video-close img {
 	float: right;
-	margin-top: 8px;
+	margin-top: 1px;
 	padding-left: 5px;
 	margin-bottom: 0;
 }
