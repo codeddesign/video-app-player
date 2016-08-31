@@ -66,7 +66,7 @@ if (isset($_GET['c'])) {
 
     <div class="container forText">
     <?php if (isset($isStream) || isset($_GET['l'])) {
-    for ($i = 0;$i < 15;++$i) {
+    for ($i = 0;$i < 20;++$i) {
         ?>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -84,6 +84,8 @@ if (isset($_GET['c'])) {
             <div class="row" id="test">
                 <script type="text/javascript" id="test"></script>
             </div>
+
+            <div class="row" id="progress"></div>
         </div>
     </div>
 

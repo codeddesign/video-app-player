@@ -1,13 +1,32 @@
 import config from '../../config';
-import { isMobile, isIGadget, isIPhone } from '../utils/mobile';
+import {
+    isMobile,
+    isIGadget,
+    isIPhone
+} from '../utils/mobile';
 import r from '../utils/referer';
 import isTest from '../utils/isTest';
 import random from '../utils/random';
+import Animator from '../utils/animator';
 
 var alternativeSize = {
     width: 640,
     height: 360
 };
+
+var divlog = function(data) {
+    var s = document.querySelector('#debug');
+
+    if (isIPhone || 1 == 1) {
+        s.innerHTML = s.innerHTML + '<br/>' + JSON.stringify(data);
+
+        return false;
+    }
+
+    if (s) {
+        s.parentNode.removeChild(s);
+    }
+}
 
 export default function Ad(app) {
     var self = this;
@@ -23,12 +42,16 @@ export default function Ad(app) {
     this.adDisplayContainer;
     this.intervalTimer;
     this.errorSource = false; // false / ad / manager
+    this.adLoaded = false;
+    this.onScreen = false;
 
     this.onLoadCallback = false;
 
     this.adId = 'a' + random();
 
-    this.APP.$container.insertElement('div', { className: ['player__video ad hidden', this.adId].join(' ') });
+    this.APP.$container.insertElement('div', {
+        className: ['player__video ad hidden', this.adId].join(' ')
+    });
 
     this.$el = this.APP.$container.find('.' + this.adId);
 
@@ -40,8 +63,6 @@ Ad.prototype.setUpIMA = function(tagUrl, onLoadCallback) {
 
     this.onLoadCallback = onLoadCallback || function() {};
 
-    google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
-
     // Create the ad display container.
     this.adDisplayContainer = new google.ima.AdDisplayContainer(
         this.$el,
@@ -50,6 +71,9 @@ Ad.prototype.setUpIMA = function(tagUrl, onLoadCallback) {
 
     // Create ads loader.
     this.adsLoader = new google.ima.AdsLoader(this.adDisplayContainer);
+
+    // Vpaid set
+    this.adsLoader.getSettings().setVpaidMode(2);
 
     this.adsLoader.addEventListener(
         google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
@@ -86,15 +110,14 @@ Ad.prototype.onAdsManagerLoaded = function(event) {
     var adsRenderingSettings = new google.ima.AdsRenderingSettings();
 
     adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
-    adsRenderingSettings.loadVideoTimeout = 30 * 1000;
+    adsRenderingSettings.loadVideoTimeout = 60 * 1000;
+    adsRenderingSettings.enablePreloading = true;
 
     // videoContent should be set to the content video element.
     this.adsManager = event.getAdsManager(
         this.APP.yt,
         adsRenderingSettings
     );
-
-    // console.dir(event);
 
     // Add listeners to the required events.
     this.adsManager.addEventListener(
@@ -120,30 +143,45 @@ Ad.prototype.onAdsManagerLoaded = function(event) {
     this.onScrollDisplay();
 }
 
-let VideoAnimator = function(cb) {
-    let rafId;
-    let previousLoopTime;
 
-    function loop(now) {
-        // must be requested before cb() because that might call .stop()
-        rafId = requestAnimationFrame(loop);
-        cb(now - (previousLoopTime || now)); // ms since last call. 0 on start()
-        previousLoopTime = now;
+Ad.prototype.onscrollIphone = function() {
+    if (!isIPhone) {
+        return false;
     }
 
-    this.start = () => {
-        if (!rafId) { // prevent double starts
-            loop(0);
+    var self = this,
+        showing = false,
+        timeChecker;
+
+    this.imaVideo = this.$el.find('video');
+    this.imaVideo.attr('playsinline', 'playsinline');
+    this.imaVideo.attr('webkit-playsinline', 'webkit-playsinline');
+
+    new Animator(this.imaVideo);
+
+    timeChecker = setInterval(function() {
+        if (self.adsManager.getRemainingTime() == 0) {
+            self.adsManager.stop();
+
+            clearInterval(timeChecker);
         }
-    };
+    }, 500);
 
-    this.stop = () => {
-        cancelAnimationFrame(rafId);
-        rafId = null;
-        previousLoopTime = 0;
-    };
-}
+    this.imaVideo.addEventListener('canplaythrough', function() {
+        self.APP.$els.loading.hide();
 
+        if (self.onScreen.mustShow && !showing) {
+            showing = true;
+            self.APP.$container.style.paddingBottom = '56.25%';
+
+            self.adsManager.start();
+
+            return false;
+        }
+
+        showing = false;
+    });
+};
 
 Ad.prototype.onScrollDisplay = function() {
     if (!this.APP.isStream) {
@@ -152,9 +190,9 @@ Ad.prototype.onScrollDisplay = function() {
 
     var self = this,
         initialized = false,
-        transitioned = false,
-        started = false,
-        audio = false;
+        started = false;
+
+    this.APP.$container.style.paddingBottom = '0';
 
     this.$el.addEventListener('mouseover', function(event) {
         this.adsManager.resume();
@@ -165,7 +203,38 @@ Ad.prototype.onScrollDisplay = function() {
         this.adsManager.setVolume(0);
     }.bind(this));
 
-    this.APP.$container.style.paddingBottom = '0';
+    this.APP.$els.adClose.addEventListener('click', function(ev) {
+        ev.stopPropagation();
+
+        this.hide();
+
+        self.APP.$container.style.paddingBottom = '0';
+
+        self.adsManager.stop();
+    });
+
+    this.APP.$els.adSound.addEventListener('click', function(ev) {
+        ev.stopPropagation();
+
+        var wasMuted = self.APP.$els.adSound.hasClass('icon-mute');
+
+        self.APP.$els.adSound.toggleClasses('icon-mute', 'icon-volume1');
+
+        if (!isIPhone) {
+            self.adsManager.setVolume(wasMuted);
+
+            return false;
+        }
+
+        self.adsManager.setVolume(wasMuted);
+
+        if (wasMuted) {
+            self.imaVideo.unmute();
+            return false;
+        }
+
+        self.imaVideo.mute();
+    });
 
     ['scroll', 'touchstart', 'touchend'].forEach(function(evName) {
         document.addEventListener(evName, function() {
@@ -173,117 +242,55 @@ Ad.prototype.onScrollDisplay = function() {
                 return false;
             }
 
-            var onscreen = self.APP.$container.onScreen();
+            self.onScreen = self.APP.$container.onScreen();
+
+            let shouldAct = (evName == 'touchend' || !isIPhone) ? true : false;
+            if (!shouldAct) {
+                return false;
+            }
 
             if (!initialized) {
                 initialized = true;
 
                 self.adDisplayContainer.initialize();
                 self.adsManager.init(alternativeSize.width, alternativeSize.height, google.ima.ViewMode.NORMAL);
-
                 self.adsManager.setVolume(0);
-
-                self.APP.$els.adClose.addEventListener('click', function(ev) {
-                    ev.stopPropagation();
-
-                    this.hide();
-                    self.APP.$container.style.paddingBottom = '0';
-
-                    self.adsManager.stop();
-
-                    audio ? audio.pause() : false;
-                });
-
-                self.APP.$els.adSound.addEventListener('click', function(ev) {
-                    ev.stopPropagation();
-
-                    var wasMuted = self.APP.$els.adSound.hasClass('icon-mute');
-
-                    self.APP.$els.adSound.toggleClasses('icon-mute', 'icon-volume1');
-
-                    if (!isIPhone) {
-                        self.adsManager.setVolume(wasMuted);
-
-                        return false;
-                    }
-
-                    if (!audio.canplaythrough) {
-                        audio.load();
-
-                        return false;
-                    }
-
-                    audio.volume = wasMuted ? 1 : 0;
-                });
-
-                if (isMobile) {
-                    self.adsManager.setVolume(0);
-
-                    self.imaVideo = self.$el.find('video');
-
-                    self.imaVideo.attr('playsinline', 'playsinline');
-                    self.imaVideo.attr('webkit-playsinline', 'webkit-playsinline');
-
-                    if (isIPhone) {
-                        self.imaVideo.hide();
-
-                        var updater = new VideoAnimator(function(timeDiff) {
-                            if (self.imaVideo.readyState >= self.imaVideo.HAVE_FUTURE_DATA) {
-                                self.imaVideo.currentTime = self.imaVideo.currentTime + (timeDiff * self.imaVideo.playbackRate) / 1000;
-                            }
-                        });
-
-                        self.imaVideo.play = function() {
-                            if (!audio) {
-                                audio = new Audio;
-                                audio.src = self.imaVideo.src;
-                                audio.preload = 'metadata';
-                                audio.canplaythrough = false;
-
-                                audio.addEventListener('canplaythrough', function(ev) {
-                                    ev.stopPropagation();
-
-                                    audio.canplaythrough = true;
-
-                                    this.currentTime = self.imaVideo.currentTime;
-
-                                    this.play();
-                                })
-                            }
-
-                            self.imaVideo.addEventListener('canplaythrough', function(ev) {
-                                self.imaVideo.show();
-
-                                updater.start();
-                            });
-                        }
-                    }
-                }
             }
 
             if (started) {
-                (onscreen.mustPause) ? self.adsManager.pause(): self.adsManager.resume()
+                if (self.onScreen.mustPause) {
+                    console.log('should pause');
+
+                    self.adsManager.pause();
+                    return false;
+                }
+
+                console.log('should resume?!');
+                self.adsManager.resume();
 
                 return false;
             }
 
-            if (onscreen.mustShow) {
-                if (!transitioned) {
-                    transitioned = true;
+            if (self.adLoaded && self.onScreen.mustShow) {
+                self.APP.$container.style.paddingBottom = '56.25%';
 
-                    self.APP.$container.style.paddingBottom = '56.25%';
-                    return false;
-                }
-
-                if (!started && transitioned && (evName == 'touchend' || !isMobile)) {
+                if (!started) {
                     started = true;
+
+                    if (isIPhone) {
+                        self.imaVideo.isPaused ? self.adsManager.start() : '';
+
+                        return false;
+                    }
 
                     self.adsManager.start();
                 }
+
+                return false;
             }
         });
     });
-}
+};
 
 Ad.prototype.onAdsManagerError = function(ev) {
     console.info('Manager error', this.adId);
@@ -307,9 +314,10 @@ Ad.prototype.onAdError = function(ev, source) {
     var code = this.adError.getErrorCode();
     var info = this.adError.getInnerError() || this.adError.getMessage();
 
-    console.warn(this.errorSource, '[', code, '-', info, ']', this.adId);
+    console.warn(this.errorSource + ' error: ', code, `[${code}]`);
+    console.dir(info);
 
-    if(this.errorSource == 'ad') {
+    if (this.errorSource == 'ad') {
         this.APP.tracker.event(this.errorSource, 'failed:' + this.adError.getErrorCode());
         this.APP.$container.addClass('aderror');
     }
@@ -338,12 +346,18 @@ Ad.prototype.onAdEvent = function(ev) {
 
     this.APP.tracker.event('ad', ev.type);
 
-    var ad = ev.getAd();
+    var ad = ev.getAd(),
+        self = this;
 
     switch (ev.type) {
         case google.ima.AdEvent.Type.LOADED:
+            this.adLoaded = true;
+
+            this.onscrollIphone();
+
             // This is the first event sent for an ad - it is possible to determine whether the ad is a video ad or an overlay.
             if (!ad.isLinear() && 1 == 2) {
+                // @todo: review if
                 this.APP.event.trigger('yt:init');
             }
 
@@ -366,7 +380,7 @@ Ad.prototype.onAdEvent = function(ev) {
                 // For a linear ad, a timer can be started to poll for the remaining time.
                 this.intervalTimer = setInterval(function() {
                     var remainingTime = this.adsManager.getRemainingTime();
-                }.bind(this), 300);
+                }.bind(this), 500);
             }
 
             break;
@@ -382,6 +396,8 @@ Ad.prototype.onAdEvent = function(ev) {
 
             break;
         case google.ima.AdEvent.Type.COMPLETE:
+            this.APP.$els.adClose.hide();
+
             if (ad.isLinear()) {
                 clearInterval(this.intervalTimer);
             }
