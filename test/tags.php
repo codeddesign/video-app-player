@@ -36,28 +36,40 @@ return [
         'desktop' => 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=sample_ct%3Dlinearvpaid&correlator=',
     ],
 
-    /* For clients */
-
+    /* AOL */
     'aol2_stream' => [
-        'desktop' => 'http://ads.adaptv.advertising.com/a/h/XUUFc52Hk6Fg01bMBS16Tqn_qngdDNKLCE+L94vK1JQ=?cb=[CACHE_BREAKER]&pageUrl=http%3A%2F%2Ftest.com&description=VIDEO_DESCRIPTION&duration=VIDEO_DURATION&id=VIDEO_ID&keywords=VIDEO_KEYWORDS&title=VIDEO_TITLE&url=VIDEO_URL&eov=eov',
-        'mobile' => 'http://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuoxeBfXnDZIwwtjIreM0olKNxJ6uQH9E_n8Zh_XzOZxMa2g63SWosWzAw==?cb=[CACHE_BREAKER]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
+        'desktop' => 'http://ads.adaptv.advertising.com/a/h/XUUFc52Hk6Fg01bMBS16Tqn_qngdDNKLCE+L94vK1JQ=?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&description=VIDEO_DESCRIPTION&duration=VIDEO_DURATION&id=VIDEO_ID&keywords=VIDEO_KEYWORDS&title=VIDEO_TITLE&url=VIDEO_URL&eov=eov',
+        'mobile' => 'http://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuoxeBfXnDZIwwtjIreM0olKNxJ6uQH9E_n8Zh_XzOZxMa2g63SWosWzAw==?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
     ],
 
     'aol3_stream' => [
-        'desktop' => 'http://ads.adaptv.advertising.com/a/h/Z1xGhxLa7QerTCsYYjVgQ0NBToAMwZ9jaquS0E_WsHk66LPCeVF_cDzHI4zwhUeK?cb=[CACHE_BREAKER]&pageUrl=http%3A%2F%2Ftest.com&description=VIDEO_DESCRIPTION&duration=VIDEO_DURATION&id=VIDEO_ID&keywords=VIDEO_KEYWORDS&title=VIDEO_TITLE&url=VIDEO_URL&eov=eov',
-        'mobile' => 'http://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuoxeBfXnDZIwwtjIreM0olKNxJ6uQH9E_n8Zh_XzOZxMa2g63SWosWzAw==?cb=[CACHE_BREAKER]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
+        'desktop' => 'http://ads.adaptv.advertising.com/a/h/Z1xGhxLa7QerTCsYYjVgQ0NBToAMwZ9jaquS0E_WsHk66LPCeVF_cDzHI4zwhUeK?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&description=VIDEO_DESCRIPTION&duration=VIDEO_DURATION&id=VIDEO_ID&keywords=VIDEO_KEYWORDS&title=VIDEO_TITLE&url=VIDEO_URL&eov=eov',
+        'mobile' => 'http://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuoxeBfXnDZIwwtjIreM0olKNxJ6uQH9E_n8Zh_XzOZxMa2g63SWosWzAw==?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
     ],
 
     'aol3js_stream' => [
-        'desktop' => 'http://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuox3Q23PcgCqzpUQV5FhImamwEfbN5RuWS4pbRllh23Sjsfu+2JacC8Am1+c_s+VmIC?cb=[CACHE_BREAKER]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
-        'mobile' => 'http://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuoxeBfXnDZIwwtjIreM0olKNxJ6uQH9E_n8Zh_XzOZxMa2g63SWosWzAw==?cb=[CACHE_BREAKER]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
+        'desktop' => 'http://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuox3Q23PcgCqzpUQV5FhImamwEfbN5RuWS4pbRllh23Sjsfu+2JacC8Am1+c_s+VmIC?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
+        'mobile' => 'http://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuoxeBfXnDZIwwtjIreM0olKNxJ6uQH9E_n8Zh_XzOZxMa2g63SWosWzAw==?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
     ],
 
     'aol_mob_stream' => [
-        'mobile' => 'https://pubads.g.doubleclick.net/gampad/ads?sz=[width]x[height]&iu=/179591938/AOL_VAST_Mobile_Test&cust_params=source_for%3Dmob%26source_is%3Daol%26source_type%3Dvast&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&description_url=[description_url]&correlator=[timestamp]',
-        'desktop' => 'https://pubads.g.doubleclick.net/gampad/ads?sz=[width]x[height]&iu=/179591938/AOL_VAST_Mobile_Test&cust_params=source_for%3Dmob%26source_is%3Daol%26source_type%3Dvast&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&description_url=[description_url]&correlator=[timestamp]',
+        'mobile' => 'https://pubads.g.doubleclick.net/gampad/ads?sz=[width]x[height]&iu=/179591938/AOL_VAST_Mobile_Test&cust_params=source_for%3Dmob%26source_is%3Daol%26source_type%3Dvast&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&description_url=http%3A%2F%2Ftest.com&correlator=[timestamp]',
+        'desktop' => 'https://pubads.g.doubleclick.net/gampad/ads?sz=[width]x[height]&iu=/179591938/AOL_VAST_Mobile_Test&cust_params=source_for%3Dmob%26source_is%3Daol%26source_type%3Dvast&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&description_url=http%3A%2F%2Ftest.com&correlator=[timestamp]',
     ],
 
+    /* Aol X */
+
+    'aolx' => [
+        'desktop' => 'http://ads.adaptv.advertising.com/a/h/uyRJieENSIdT8Wcm98WmxQIRdBlKE88Eh4visFpkvHAsrATW9oUwGw==?cb=[cache_breaker]&pet=preroll&pageUrl=[description_url]&eov=eov',
+        'mobile' => 'http://ads.adaptv.advertising.com/a/h/uyRJieENSIdT8Wcm98WmxQEau7X1ITTpUvI2u6baco8=?cb=[cache_breaker]&pageUrl=[description_url]&a.ip=[IPADDRESS]&a.ua=[USERAGENT]&eov=eov',
+    ],
+
+    'aolx_stream' => [
+        'desktop' => 'http://ads.adaptv.advertising.com/a/h/xWkHU9AJsuPqslgxgL+l8Nb0YNUyK_D1rg8S9Kw7vyRr22mKuJb_Ow==?cb=[cache_breaker]&pet=preroll&pageUrl=[description_url]&eov=eov',
+        'mobile' => 'http://ads.adaptv.advertising.com/a/h/xWkHU9AJsuOFWrUE07AtG3h8tLpzkkJBIVJJ3JK5mrMywQtqAHNaqQ==?cb=[cache_breaker]&pet=preroll&pageUrl=[description_url]&eov=eov'
+    ],
+
+    /* Beachfront */
     'beachfront_stream' => [
         'mobile' => 'https://ioms.bfmio.com/getBFMT?aid=ef4dc435-43d8-48f5-b123-229bc00c49b6&i_type=out&v=1&mf=f',
         'desktop' => 'https://ioms.bfmio.com/getBFMT?aid=ef4dc435-43d8-48f5-b123-229bc00c49b6&i_type=out&v=1&mf=f',
@@ -67,6 +79,8 @@ return [
         'mobile' => 'https://ioms.bfmio.com/getBFMT?aid=ef4dc435-43d8-48f5-b123-229bc00c49b6&i_type=out&v=1',
         'desktop' => 'https://ioms.bfmio.com/getBFMT?aid=ef4dc435-43d8-48f5-b123-229bc00c49b6&i_type=out&v=1',
     ],
+
+    /* Mogul */
 
     'mogul' => [
         'desktop' => 'http://rtb.tubemogul.com/vast2/H7VDmIyIgfMifFGbQBIu/?duration=30&vpaid=T&url=[description_url]',

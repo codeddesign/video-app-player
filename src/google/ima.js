@@ -112,7 +112,7 @@ Ad.prototype.onAdsManagerLoaded = function(event) {
     var adsRenderingSettings = new google.ima.AdsRenderingSettings();
 
     adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
-    adsRenderingSettings.loadVideoTimeout = 60 * 1000;
+    adsRenderingSettings.loadVideoTimeout = 20 * 1000;
     adsRenderingSettings.enablePreloading = true;
 
     // videoContent should be set to the content video element.
@@ -243,6 +243,18 @@ Ad.prototype.onScrollDisplay = function() {
         self.imaVideo.mute();
     });
 
+    function initializeIt() {
+        initialized = true;
+
+        self.adDisplayContainer.initialize();
+        self.adsManager.init(alternativeSize.width, alternativeSize.height, google.ima.ViewMode.NORMAL);
+        self.adsManager.setVolume(0);
+    }
+
+    if(!isMobile) {
+        initializeIt();
+    }
+
     ['scroll', 'touchstart', 'touchend'].forEach(function(evName) {
         document.addEventListener(evName, function() {
             if (self.$el.hasClass('hidden')) {
@@ -257,28 +269,22 @@ Ad.prototype.onScrollDisplay = function() {
             }
 
             if (!initialized) {
-                initialized = true;
-
-                self.adDisplayContainer.initialize();
-                self.adsManager.init(alternativeSize.width, alternativeSize.height, google.ima.ViewMode.NORMAL);
-                self.adsManager.setVolume(0);
+                initializeIt();
             }
 
             if (started) {
                 if (self.onScreen.mustPause) {
-                    console.log('should pause');
-
                     self.adsManager.pause();
                     return false;
                 }
 
-                console.log('should resume?!');
                 self.adsManager.resume();
 
                 return false;
             }
 
             if (self.adLoaded && self.onScreen.mustShow) {
+                self.APP.$els.loading.hide();
                 self.APP.$container.style.paddingBottom = '56.25%';
 
                 if (!started) {

@@ -35,7 +35,8 @@ Tags.prototype.replaceData = function(url) {
     let mapped = {
         '[description_url]': encodeURIComponent(r.path.full),
         '[width]': this.APP.$container.offsetWidth || 640,
-        '[height]': this.APP.$container.offsetHeight || 360
+        '[height]': this.APP.$container.offsetHeight || 360,
+        '[cache_breaker]': Date.now() + Math.random()
     };
 
     Object.keys(mapped).forEach(function(key) {
