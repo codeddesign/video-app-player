@@ -17,7 +17,7 @@ var alternativeSize = {
 var divlog = function(data) {
     var s = document.querySelector('#debug');
 
-    if (isIPhone || 1 == 1) {
+    if (isIPhone) {
         s.innerHTML = s.innerHTML + '<br/>' + JSON.stringify(data);
 
         return false;
@@ -74,6 +74,8 @@ Ad.prototype.setUpIMA = function(tagUrl, onLoadCallback) {
 
     // Vpaid set
     this.adsLoader.getSettings().setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
+
+    this.adsLoader.getSettings().setNumRedirects(50);
 
     this.adsLoader.addEventListener(
         google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
@@ -138,6 +140,11 @@ Ad.prototype.onAdsManagerLoaded = function(event) {
 
     if (this.onLoadCallback) {
         this.onLoadCallback.apply(this);
+    }
+
+    if (!this.APP.isStream) {
+        this.adDisplayContainer.initialize();
+        this.adsManager.init(this.APP.$container.offsetWidth, this.APP.$container.offsetHeight, google.ima.ViewMode.NORMAL);
     }
 
     this.onScrollDisplay();
@@ -314,7 +321,7 @@ Ad.prototype.onAdError = function(ev, source) {
     var code = this.adError.getErrorCode();
     var info = this.adError.getInnerError() || this.adError.getMessage();
 
-    console.warn(this.errorSource + ' error: ', code, `[${code}]`);
+    console.warn(this.errorSource + ' error: ', code, `[${code}]`, this.tagUrl);
     console.dir(info);
 
     if (this.errorSource == 'ad') {
@@ -356,7 +363,7 @@ Ad.prototype.onAdEvent = function(ev) {
             this.onscrollIphone();
 
             // This is the first event sent for an ad - it is possible to determine whether the ad is a video ad or an overlay.
-            if (!ad.isLinear() && 1 == 2) {
+            if (!ad.isLinear()) {
                 // @todo: review if
                 this.APP.event.trigger('yt:init');
             }
@@ -434,11 +441,7 @@ Ad.prototype.playAd = function() {
     }
 
     // Initialize the container. Must be done via a user action on mobile devices.
-    this.adDisplayContainer.initialize();
-
     try {
-        this.adsManager.init(this.APP.$container.offsetWidth, this.APP.$container.offsetHeight, google.ima.ViewMode.NORMAL);
-
         this.adsManager.start();
 
         this.APP.$els.overlay.hide();

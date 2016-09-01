@@ -16,7 +16,7 @@ Tags.prototype.urls = function(first) {
     var first = first || false,
         tag = this.list[this.type][this.mode];
 
-    if (isTest && TESTING.tag) {
+    if (isTest && typeof TESTING !== 'undefined' && TESTING.tag) {
         tag = [TESTING.tag];
     }
 
