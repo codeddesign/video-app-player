@@ -337,7 +337,6 @@ Ad.prototype.onAdEvent = function(ev) {
 
     switch (ev.type) {
         case google.ima.AdEvent.Type.LOADED:
-            alert('start magic <3');
             this.adLoaded = true;
 
             this.onscrollIphone();
