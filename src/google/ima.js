@@ -14,20 +14,6 @@ var alternativeSize = {
     height: 360
 };
 
-var divlog = function(data) {
-    var s = document.querySelector('#debug');
-
-    if (isIPhone) {
-        s.innerHTML = s.innerHTML + '<br/>' + JSON.stringify(data);
-
-        return false;
-    }
-
-    if (s) {
-        s.parentNode.removeChild(s);
-    }
-}
-
 export default function Ad(app) {
     var self = this;
 
@@ -75,7 +61,7 @@ Ad.prototype.setUpIMA = function(tagUrl, onLoadCallback) {
     // Vpaid set
     this.adsLoader.getSettings().setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
 
-    this.adsLoader.getSettings().setNumRedirects(50);
+    this.adsLoader.getSettings().setNumRedirects(10);
 
     this.adsLoader.addEventListener(
         google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
@@ -112,7 +98,7 @@ Ad.prototype.onAdsManagerLoaded = function(event) {
     var adsRenderingSettings = new google.ima.AdsRenderingSettings();
 
     adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
-    adsRenderingSettings.loadVideoTimeout = 20 * 1000;
+    adsRenderingSettings.loadVideoTimeout = 15 * 1000;
     adsRenderingSettings.enablePreloading = true;
 
     // videoContent should be set to the content video element.
@@ -142,12 +128,16 @@ Ad.prototype.onAdsManagerLoaded = function(event) {
         this.onLoadCallback.apply(this);
     }
 
-    if (!this.APP.isStream) {
+    this.onScrollDisplay();
+
+    if (this.APP.isStream) {
+        this.adDisplayContainer.initialize();
+        this.adsManager.init(alternativeSize.width, alternativeSize.height, google.ima.ViewMode.NORMAL);
+        this.adsManager.setVolume(0);
+    } else {
         this.adDisplayContainer.initialize();
         this.adsManager.init(this.APP.$container.offsetWidth, this.APP.$container.offsetHeight, google.ima.ViewMode.NORMAL);
     }
-
-    this.onScrollDisplay();
 }
 
 
@@ -196,7 +186,6 @@ Ad.prototype.onScrollDisplay = function() {
     }
 
     var self = this,
-        initialized = false,
         started = false;
 
     this.APP.$container.style.paddingBottom = '0';
@@ -243,18 +232,6 @@ Ad.prototype.onScrollDisplay = function() {
         self.imaVideo.mute();
     });
 
-    function initializeIt() {
-        initialized = true;
-
-        self.adDisplayContainer.initialize();
-        self.adsManager.init(alternativeSize.width, alternativeSize.height, google.ima.ViewMode.NORMAL);
-        self.adsManager.setVolume(0);
-    }
-
-    if(!isMobile) {
-        initializeIt();
-    }
-
     ['scroll', 'touchstart', 'touchend'].forEach(function(evName) {
         document.addEventListener(evName, function() {
             if (self.$el.hasClass('hidden')) {
@@ -266,10 +243,6 @@ Ad.prototype.onScrollDisplay = function() {
             let shouldAct = (evName == 'touchend' || !isIPhone) ? true : false;
             if (!shouldAct) {
                 return false;
-            }
-
-            if (!initialized) {
-                initializeIt();
             }
 
             if (started) {
@@ -364,6 +337,7 @@ Ad.prototype.onAdEvent = function(ev) {
 
     switch (ev.type) {
         case google.ima.AdEvent.Type.LOADED:
+            alert('start magic <3');
             this.adLoaded = true;
 
             this.onscrollIphone();
