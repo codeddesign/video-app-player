@@ -167,6 +167,7 @@ Ad.prototype.onscrollIphone = function() {
 
     this.imaVideo.addEventListener('canplaythrough', function() {
         self.APP.$els.loading.hide();
+        self.imaVideo.parentNode.style.display = 'block';
 
         if (self.onScreen.mustShow && !showing) {
             showing = true;

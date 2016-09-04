@@ -8,5 +8,8 @@ export var isIGadget = (function() {
 
 
 export var isIPhone = (function() {
-    return /iPhone|iPod/i.test(navigator.userAgent)
+    var agent = /iPhone|iPod/i.test(navigator.userAgent),
+        platform = /iPhone|iPod/i.test(navigator.platform);
+
+    return agent && platform;
 })()
