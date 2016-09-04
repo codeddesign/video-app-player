@@ -130,13 +130,14 @@ Ad.prototype.onAdsManagerLoaded = function(event) {
 
     this.onScrollDisplay();
 
-    if (this.APP.isStream) {
-        this.adDisplayContainer.initialize();
-        this.adsManager.init(alternativeSize.width, alternativeSize.height, google.ima.ViewMode.NORMAL);
-        this.adsManager.setVolume(0);
-    } else {
+    if (!this.APP.isStream) {
         this.adDisplayContainer.initialize();
         this.adsManager.init(this.APP.$container.offsetWidth, this.APP.$container.offsetHeight, google.ima.ViewMode.NORMAL);
+    }
+
+    if (this.APP.isStream && isMobile) {
+        this.adDisplayContainer.initialize();
+        this.adsManager.init(alternativeSize.width, alternativeSize.height, google.ima.ViewMode.NORMAL);
     }
 }
 
@@ -191,7 +192,6 @@ Ad.prototype.onScrollDisplay = function() {
     this.APP.$container.style.paddingBottom = '0';
 
     this.$el.addEventListener('mouseover', function(event) {
-        this.adsManager.resume();
         this.adsManager.setVolume(1);
     }.bind(this));
 
@@ -256,21 +256,36 @@ Ad.prototype.onScrollDisplay = function() {
                 return false;
             }
 
-            if (self.adLoaded && self.onScreen.mustShow) {
+            if (!started && self.onScreen.mustShow && self.adLoaded && isMobile) {
+                // console.log('mobile case');
+
+                started = true;
+
+                // show
                 self.APP.$els.loading.hide();
                 self.APP.$container.style.paddingBottom = '56.25%';
 
-                if (!started) {
-                    started = true;
+                // start
+                self.adsManager.start();
 
-                    if (isIPhone) {
-                        self.imaVideo.isPaused ? self.adsManager.start() : '';
+                return false;
+            }
 
-                        return false;
-                    }
+            if (!started && self.onScreen.mustShow && !isMobile) {
+                // console.log('desktop case');
 
-                    self.adsManager.start();
-                }
+                started = true;
+
+                // show
+                self.APP.$els.loading.hide();
+                self.APP.$container.style.paddingBottom = '56.25%';
+
+                // init
+                self.adDisplayContainer.initialize();
+                self.adsManager.init(alternativeSize.width, alternativeSize.height, google.ima.ViewMode.NORMAL);
+
+                // start
+                self.adsManager.start();
 
                 return false;
             }
@@ -355,6 +370,9 @@ Ad.prototype.onAdEvent = function(ev) {
             break;
         case google.ima.AdEvent.Type.STARTED:
             if (this.APP.isStream) {
+                // mute it as soon as it starts (for aol is the only place where it takes effect.)
+                this.adsManager.setVolume(0);
+
                 if (isMobile) {
                     this.APP.$els.adSound.show();
                 }

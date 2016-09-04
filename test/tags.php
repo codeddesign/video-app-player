@@ -38,18 +38,18 @@ return [
 
     /* AOL */
     'aol2_stream' => [
-        'desktop' => 'http://ads.adaptv.advertising.com/a/h/XUUFc52Hk6Fg01bMBS16Tqn_qngdDNKLCE+L94vK1JQ=?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&description=VIDEO_DESCRIPTION&duration=VIDEO_DURATION&id=VIDEO_ID&keywords=VIDEO_KEYWORDS&title=VIDEO_TITLE&url=VIDEO_URL&eov=eov',
-        'mobile' => 'http://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuoxeBfXnDZIwwtjIreM0olKNxJ6uQH9E_n8Zh_XzOZxMa2g63SWosWzAw==?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
+        'desktop' => 'https://ads.adaptv.advertising.com/a/h/XUUFc52Hk6Fg01bMBS16Tqn_qngdDNKLCE+L94vK1JQ=?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&description=VIDEO_DESCRIPTION&duration=VIDEO_DURATION&id=VIDEO_ID&keywords=VIDEO_KEYWORDS&title=VIDEO_TITLE&url=VIDEO_URL&eov=eov',
+        'mobile' => 'https://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuoxeBfXnDZIwwtjIreM0olKNxJ6uQH9E_n8Zh_XzOZxMa2g63SWosWzAw==?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
     ],
 
     'aol3_stream' => [
-        'desktop' => 'http://ads.adaptv.advertising.com/a/h/Z1xGhxLa7QerTCsYYjVgQ0NBToAMwZ9jaquS0E_WsHk66LPCeVF_cDzHI4zwhUeK?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&description=VIDEO_DESCRIPTION&duration=VIDEO_DURATION&id=VIDEO_ID&keywords=VIDEO_KEYWORDS&title=VIDEO_TITLE&url=VIDEO_URL&eov=eov',
-        'mobile' => 'http://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuoxeBfXnDZIwwtjIreM0olKNxJ6uQH9E_n8Zh_XzOZxMa2g63SWosWzAw==?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
+        'desktop' => 'https://ads.adaptv.advertising.com/a/h/Z1xGhxLa7QerTCsYYjVgQ0NBToAMwZ9jaquS0E_WsHk66LPCeVF_cDzHI4zwhUeK?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&description=VIDEO_DESCRIPTION&duration=VIDEO_DURATION&id=VIDEO_ID&keywords=VIDEO_KEYWORDS&title=VIDEO_TITLE&url=VIDEO_URL&eov=eov',
+        'mobile' => 'https://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuoxeBfXnDZIwwtjIreM0olKNxJ6uQH9E_n8Zh_XzOZxMa2g63SWosWzAw==?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
     ],
 
     'aol3js_stream' => [
-        'desktop' => 'http://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuox3Q23PcgCqzpUQV5FhImamwEfbN5RuWS4pbRllh23Sjsfu+2JacC8Am1+c_s+VmIC?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
-        'mobile' => 'http://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuoxeBfXnDZIwwtjIreM0olKNxJ6uQH9E_n8Zh_XzOZxMa2g63SWosWzAw==?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
+        'desktop' => 'https://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuox3Q23PcgCqzpUQV5FhImamwEfbN5RuWS4pbRllh23Sjsfu+2JacC8Am1+c_s+VmIC?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
+        'mobile' => 'https://ads.adaptv.advertising.com/a/h/e+ZEahu1C68hLHWBruOaJK3_UIHzeuoxeBfXnDZIwwtjIreM0olKNxJ6uQH9E_n8Zh_XzOZxMa2g63SWosWzAw==?cb=[cache_breaker]&pageUrl=http%3A%2F%2Ftest.com&eov=eov',
     ],
 
     'aol_mob_stream' => [
@@ -60,13 +60,13 @@ return [
     /* Aol X */
 
     'aolx' => [
-        'desktop' => 'http://ads.adaptv.advertising.com/a/h/uyRJieENSIdT8Wcm98WmxQIRdBlKE88Eh4visFpkvHAsrATW9oUwGw==?cb=[cache_breaker]&pet=preroll&pageUrl=[description_url]&eov=eov',
-        'mobile' => 'http://ads.adaptv.advertising.com/a/h/uyRJieENSIdT8Wcm98WmxQEau7X1ITTpUvI2u6baco8=?cb=[cache_breaker]&pageUrl=[description_url]&a.ip=[IPADDRESS]&a.ua=[USERAGENT]&eov=eov',
+        'desktop' => 'https://ads.adaptv.advertising.com/a/h/uyRJieENSIdT8Wcm98WmxQIRdBlKE88Eh4visFpkvHAsrATW9oUwGw==?cb=[cache_breaker]&pet=preroll&pageUrl=[description_url]&eov=eov',
+        'mobile' => 'https://ads.adaptv.advertising.com/a/h/uyRJieENSIdT8Wcm98WmxQEau7X1ITTpUvI2u6baco8=?cb=[cache_breaker]&pageUrl=[description_url]&a.ip=[IPADDRESS]&a.ua=[USERAGENT]&eov=eov',
     ],
 
     'aolx_stream' => [
-        'desktop' => 'http://ads.adaptv.advertising.com/a/h/xWkHU9AJsuPqslgxgL+l8Nb0YNUyK_D1rg8S9Kw7vyRr22mKuJb_Ow==?cb=[cache_breaker]&pet=preroll&pageUrl=[description_url]&eov=eov',
-        'mobile' => 'http://ads.adaptv.advertising.com/a/h/xWkHU9AJsuOFWrUE07AtG3h8tLpzkkJBIVJJ3JK5mrMywQtqAHNaqQ==?cb=[cache_breaker]&pet=preroll&pageUrl=[description_url]&eov=eov'
+        'desktop' => 'https://ads.adaptv.advertising.com/a/h/xWkHU9AJsuPqslgxgL+l8Nb0YNUyK_D1rg8S9Kw7vyRr22mKuJb_Ow==?cb=[cache_breaker]&pet=preroll&pageUrl=[description_url]&eov=eov',
+        'mobile' => 'https://ads.adaptv.advertising.com/a/h/xWkHU9AJsuOFWrUE07AtG3h8tLpzkkJBIVJJ3JK5mrMywQtqAHNaqQ==?cb=[cache_breaker]&pet=preroll&pageUrl=[description_url]&eov=eov'
     ],
 
     /* Beachfront */
@@ -84,12 +84,12 @@ return [
 
     'mogul' => [
         'desktop' => 'http://rtb.tubemogul.com/vast2/H7VDmIyIgfMifFGbQBIu/?duration=30&vpaid=T&url=[description_url]',
-        'mobile' => 'http://rtb.tubemogul.com/vast2/cO4yjyZqdsMD5n1WYpcq/?duration=30&rtb_type=instream_mobile_vast_inter&timestamp='.time().'&url=[description_url]',
+        'mobile' => 'http://rtb.tubemogul.com/vast2/cO4yjyZqdsMD5n1WYpcq/?duration=30&rtb_type=instream_mobile_vast_inter&timestamp=[cache_breaker]&url=[description_url]',
     ],
 
     'mogul_stream' => [
         'desktop' => 'http://rtb.tubemogul.com/vast2/POmTwIl3kr4g1oW1RGjU/?duration=30&vpaid=T&url=[description_url]',
-        'mobile' => 'http://rtb.tubemogul.com/vast2/RfEBMuyt4XX7mpqiCygE/?duration=30&rtb_type=instream_mobile_vast_inter&timestamp='.time().'&url=[description_url]',
+        'mobile' => 'http://rtb.tubemogul.com/vast2/RfEBMuyt4XX7mpqiCygE/?duration=30&rtb_type=instream_mobile_vast_inter&timestamp=[cache_breaker]&url=[description_url]',
     ],
 
 ];
