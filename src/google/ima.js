@@ -308,7 +308,7 @@ Ad.prototype.onAdError = function(ev, source) {
     var info = this.adError.getInnerError() || this.adError.getMessage();
 
     console.warn(this.errorSource + ' error: ', code, `[${code}]`, this.tagUrl);
-    console.dir(info);
+    console.log(info);
 
     if (this.errorSource == 'ad') {
         this.APP.tracker.event(this.errorSource, 'failed:' + this.adError.getErrorCode());
@@ -346,6 +346,11 @@ Ad.prototype.onAdEvent = function(ev) {
         case google.ima.AdEvent.Type.LOADED:
             this.adLoaded = true;
 
+            self.APP.$els.loading.hide();
+            if(self.APP.isStream) {
+                self.APP.$container.style.paddingBottom = '56.25%';
+            }
+
             this.onscrollIphone();
 
             // This is the first event sent for an ad - it is possible to determine whether the ad is a video ad or an overlay.
@@ -359,13 +364,10 @@ Ad.prototype.onAdEvent = function(ev) {
                 this.$el.find('iframe').style.visibility = 'hidden';
             }
 
-            if (this.APP.isStream) {
-                self.APP.$els.loading.hide();
-                self.APP.$container.style.paddingBottom = '56.25%';
-            }
-
             break;
         case google.ima.AdEvent.Type.STARTED:
+            console.info('playing..', this.tagUrl);
+
             if (this.APP.isStream) {
                 // mute it as soon as it starts (for aol is the only place where it takes effect.)
                 this.adsManager.setVolume(0);

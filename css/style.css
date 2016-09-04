@@ -27,6 +27,7 @@
     -webkit-transition: padding-bottom .8s ease-in-out;
     transition: padding-bottom .8s;
     clear: both;
+    background: black;
 }
 
 .player__container.stream {
@@ -426,7 +427,7 @@ iframe.player__video.hidden {
 .sk-cube-grid {
     width: 40px;
     height: 40px;
-    margin: 100px auto;
+    margin: 140px auto;
 }
 
 .sk-cube-grid .sk-cube {
