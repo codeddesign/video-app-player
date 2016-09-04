@@ -171,7 +171,7 @@ export default function(app, script) {
         FB.ui({
             method: 'share',
             mobile_iframe: true,
-            href: 'http://ad3media.com',
+            href: location.href,
         }, function(response) {});
     }
 
