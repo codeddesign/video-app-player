@@ -261,10 +261,6 @@ Ad.prototype.onScrollDisplay = function() {
 
                 started = true;
 
-                // show
-                self.APP.$els.loading.hide();
-                self.APP.$container.style.paddingBottom = '56.25%';
-
                 // start
                 self.adsManager.start();
 
@@ -275,10 +271,6 @@ Ad.prototype.onScrollDisplay = function() {
                 // console.log('desktop case');
 
                 started = true;
-
-                // show
-                self.APP.$els.loading.hide();
-                self.APP.$container.style.paddingBottom = '56.25%';
 
                 // init
                 self.adDisplayContainer.initialize();
@@ -365,6 +357,11 @@ Ad.prototype.onAdEvent = function(ev) {
             if (isIPhone) {
                 this.$el.find('iframe').style.opacity = 0;
                 this.$el.find('iframe').style.visibility = 'hidden';
+            }
+
+            if (this.APP.isStream) {
+                self.APP.$els.loading.hide();
+                self.APP.$container.style.paddingBottom = '56.25%';
             }
 
             break;
