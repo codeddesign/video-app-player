@@ -89,6 +89,19 @@ Ad.prototype.setUpIMA = function(tagUrl, onLoadCallback) {
     this.adsLoader.requestAds(this.adsRequest);
 }
 
+Ad.prototype.isAol = function() {
+    let patterns = ['aol', 'adap'],
+        found = false;
+
+    patterns.forEach(function(pattern) {
+        if (this.tagUrl.toLowerCase().indexOf(pattern.toLowerCase()) !== -1) {
+            found = true;
+        }
+    }.bind(this));
+
+    return found;
+}
+
 Ad.prototype.onAdsManagerLoaded = function(event) {
     console.info('Manager loaded', this.adId);
 
@@ -130,7 +143,7 @@ Ad.prototype.onAdsManagerLoaded = function(event) {
 
     this.onScrollDisplay();
 
-    if (!this.APP.isStream) {
+    if (!this.APP.isStream && !this.isAol()) {
         this.adDisplayContainer.initialize();
         this.adsManager.init(this.APP.$container.offsetWidth, this.APP.$container.offsetHeight, google.ima.ViewMode.NORMAL);
     }
@@ -348,7 +361,7 @@ Ad.prototype.onAdEvent = function(ev) {
             this.adLoaded = true;
 
             self.APP.$els.loading.hide();
-            if(self.APP.isStream) {
+            if (self.APP.isStream) {
                 self.APP.$container.style.paddingBottom = '56.25%';
             }
 
@@ -439,6 +452,11 @@ Ad.prototype.playAd = function() {
 
     // Initialize the container. Must be done via a user action on mobile devices.
     try {
+        if (this.isAol()) {
+            this.adDisplayContainer.initialize();
+            this.adsManager.init(this.APP.$container.offsetWidth, this.APP.$container.offsetHeight, google.ima.ViewMode.NORMAL);
+        }
+
         this.adsManager.start();
 
         this.APP.$els.overlay.hide();

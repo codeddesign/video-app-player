@@ -34,8 +34,10 @@ Tags.prototype.urls = function(first) {
 Tags.prototype.replaceData = function(url) {
     let mapped = {
         '[description_url]': encodeURIComponent(r.path.full),
+        '[referrer_url]': encodeURIComponent(r.path.full),
         '[width]': this.APP.$container.offsetWidth || 640,
         '[height]': this.APP.$container.offsetHeight || 360,
+        '[cache_breaker]': Date.now() + Math.random(),
         '[cache_breaker]': Date.now() + Math.random()
     };
 

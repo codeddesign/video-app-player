@@ -66,7 +66,7 @@ return [
 
     'aolx_stream' => [
         'desktop' => 'https://ads.adaptv.advertising.com/a/h/xWkHU9AJsuPqslgxgL+l8Nb0YNUyK_D1rg8S9Kw7vyRr22mKuJb_Ow==?cb=[cache_breaker]&pet=preroll&pageUrl=[description_url]&eov=eov',
-        'mobile' => 'https://ads.adaptv.advertising.com/a/h/xWkHU9AJsuOFWrUE07AtG3h8tLpzkkJBIVJJ3JK5mrMywQtqAHNaqQ==?cb=[cache_breaker]&pet=preroll&pageUrl=[description_url]&eov=eov'
+        'mobile' => 'https://ads.adaptv.advertising.com/a/h/xWkHU9AJsuOFWrUE07AtG3h8tLpzkkJBIVJJ3JK5mrMywQtqAHNaqQ==?cb=[cache_breaker]&pet=preroll&pageUrl=[description_url]&eov=eov',
     ],
 
     /* Beachfront */
@@ -92,4 +92,9 @@ return [
         'mobile' => 'http://rtb.tubemogul.com/vast2/RfEBMuyt4XX7mpqiCygE/?duration=30&rtb_type=instream_mobile_vast_inter&timestamp=[cache_breaker]&url=[description_url]',
     ],
 
+    /* Temp */
+    'aol_temp' => [
+        'desktop' => 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x360&iu=/179591938/AOL_JS-VPAID_Test&cust_params=source_for%3Ddesk%26source_is%3Daol%26source_type%3Djsvpaid&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=http%3A%2F%2Fvideoplayer.dev%2Ftest%2F&description_url=http%3A%2F%2Fvideoplayer.dev%2Ftest%2F&correlator=1473229595534.3271',
+        'mobile' => 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x360&iu=/179591938/AOL_JS-VPAID_Test&cust_params=source_for%3Ddesk%26source_is%3Daol%26source_type%3Djsvpaid&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=http%3A%2F%2Fvideoplayer.dev%2Ftest%2F&description_url=http%3A%2F%2Fvideoplayer.dev%2Ftest%2F&correlator=1473229595534.3271',
+    ],
 ];
