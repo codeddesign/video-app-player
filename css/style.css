@@ -395,7 +395,7 @@ iframe.player__video.hidden {
 
 .player__video-close img {
 	float: right;
-	margin-top: 1px;
+	margin-top: 7px;
 	padding-left: 5px;
 	margin-bottom: 0;
 }
@@ -482,6 +482,12 @@ iframe.player__video.hidden {
 .sk-cube-grid .sk-cube9 {
     -webkit-animation-delay: 0.2s;
     animation-delay: 0.2s;
+}
+
+@media screen and (max-width: 600px) {
+    .player__video-close img {
+        margin-top: 1px !important;
+    }
 }
 
 @-webkit-keyframes sk-cubeGridScaleDelay {
