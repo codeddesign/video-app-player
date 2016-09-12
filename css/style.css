@@ -378,6 +378,20 @@ iframe.player__video.hidden {
     z-index: 9999999999;
 }
 
+.player__poweredby {
+	font-size: 11px;
+	color: #444444;
+	font-family: sans-serif;
+	font-weight: 600;
+    width: 100%;
+    margin-bottom: -15px;
+    margin-top: 10px;
+}
+
+.player__poweredby img {
+	margin-top: -3px;
+}
+
 
 /** ad icons */
 
@@ -395,7 +409,8 @@ iframe.player__video.hidden {
 
 .player__video-close img {
 	float: right;
-	margin-top: 7px;
+	/*margin-top: 7px;*/
+	margin-top: 1px;
 	padding-left: 5px;
 	margin-bottom: 0;
 }
